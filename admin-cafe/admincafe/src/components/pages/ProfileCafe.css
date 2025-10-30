@@ -1,0 +1,227 @@
+/* ProfileCafe.css */
+.profile-cafe-container {
+  padding: 20px;
+  background-color: #F7F3EF;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.profile-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.top-section {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.main-image-card {
+  position: relative;
+  width: 400px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.main-image {
+  width: 100%;
+  height: 290px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ff4d4f;
+  border: none;
+  color: white;
+  padding: 6px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.verified {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: #28a745;
+  font-weight: bold;
+  background: #ffffffcc;
+  padding: 3px 6px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.info-card {
+  background: #FFF4E6;
+  padding: 20px;
+  border-radius: 15px;
+  flex: 1;
+  min-width: 300px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.info-row {
+  margin-bottom: 12px;
+}
+
+.label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 18px;
+}
+
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn, .save-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.edit-btn {
+  background-color: #8c6d5c;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #755645;
+}
+
+.save-btn {
+  background-color: #d2b68c;
+}
+
+.save-btn:hover {
+  background-color: #b99a70;
+}
+
+.gallery-section {
+  margin-top: 30px;
+}
+
+.gallery-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.gallery-item {
+  position: relative;
+  width: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.gallery-item img {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  height: 150px;
+}
+
+.gallery-item .delete-btn {
+  top: 5px;
+  right: 5px;
+  padding: 4px;
+  font-size: 12px;
+}
+
+.gallery-item .pagination {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  background: #00000088;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+/* ProfileCafe.css */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: #f5e4d8;
+  padding: 20px;
+  border-radius: 15px;
+  width: 500px;
+  max-height: 90%;
+  overflow-y: auto;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.popup-content input,
+.popup-content textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.popup-content label {
+  font-weight: bold;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancel-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.cancel-btn:hover {
+  background-color: #d32f2f;
+}
+

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import "./Register.css";
-import coffeeImg from "../assets/gambarbiji.png";
+import coffeeImg from "./assets/gambarbiji.png";
 
 function Register() {
   const navigate = useNavigate();

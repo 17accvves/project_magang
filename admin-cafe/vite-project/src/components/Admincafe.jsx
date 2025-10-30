@@ -17,6 +17,15 @@ import "./Admincafe.css";
 import coffeeLogo from "../assets/gambarbiji.png";
 import profilePic from "../assets/profile.jpg";
 
+// === IMPORT HALAMAN ===
+import Dashboard from "./pages/Dashboard";
+import ProfileCafe from "./pages/ProfileCafe";
+import MenuPage from "./pages/Menu";
+import UlasanPage from "./pages/Ulasan";
+import PromoPage from "./pages/Promo";
+import EventPage from "./pages/Event";
+import LaporanPage from "./pages/Laporan";
+
 function Admincafe() {
   const [activeMenu, setActiveMenu] = useState("Dashboard");
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -37,6 +46,28 @@ function Admincafe() {
     if (confirmLogout) {
       localStorage.removeItem("isLoggedIn");
       navigate("/login");
+    }
+  };
+
+  // === FUNGSI RENDER HALAMAN ===
+  const renderPage = () => {
+    switch (activeMenu) {
+      case "Dashboard":
+        return <Dashboard />;
+      case "Profile Cafe":
+        return <ProfileCafe />;
+      case "Menu":
+        return <MenuPage />;
+      case "Ulasan":
+        return <UlasanPage />;
+      case "Promo":
+        return <PromoPage />;
+      case "Event":
+        return <EventPage />;
+      case "Laporan":
+        return <LaporanPage />;
+      default:
+        return <Dashboard />;
     }
   };
 
@@ -91,7 +122,7 @@ function Admincafe() {
         </header>
 
         <div className="content-body">
-          <p>Selamat datang di halaman {activeMenu} Admin Café ☕</p>
+          {renderPage()}
         </div>
       </main>
     </div>

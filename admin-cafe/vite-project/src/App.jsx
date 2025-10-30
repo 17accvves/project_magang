@@ -9,7 +9,8 @@ function App() {
     <Router>
       <Routes>
         {/* 🔹 Route default (redirect ke /login) */}
-        <Route path="/" element={<Navigate to="/login" replace />} />  
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        
         {/* 🔹 Halaman login dan register */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

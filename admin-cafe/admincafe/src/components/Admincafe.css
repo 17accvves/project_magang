@@ -1,0 +1,260 @@
+/* === LAYOUT UTAMA === */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f7f3ef;
+  font-family: "Poppins", sans-serif;
+}
+
+/* === SIDEBAR === */
+.sidebar {
+  width: 240px;
+  background: linear-gradient(160deg, #6a462f, #d9ba86);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 15px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 0 20px 20px 0;
+  transition: width 0.3s ease;
+}
+
+.admin-layout.collapsed .sidebar {
+  width: 80px;
+}
+
+/* === LOGO SECTION === */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+  justify-content: center;
+}
+
+.logo-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.logo-text {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+/* === TOGGLE BUTTON === */
+.toggle-btn {
+  position: absolute;
+  top: 20px;
+  right: -12px;
+  background: #d9ba86;
+  color: #4a2f1b;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.toggle-btn:hover {
+  background: #fff;
+  color: #6a462f;
+}
+
+/* === MENU === */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(5px);
+}
+
+.menu-item.active {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* === LOGOUT === */
+.logout {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 40px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+  color: #fff;
+  font-weight: 500;
+}
+
+.logout:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* === KONTEN UTAMA === */
+.main-content {
+  flex: 1;
+  margin-left: 240px;
+  padding: 40px;
+  color: #3b2a1a;
+  transition: margin-left 0.3s ease;
+}
+
+.admin-layout.collapsed .main-content {
+  margin-left: 80px;
+}
+
+.main-content h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.main-content p {
+  font-size: 16px;
+  color: #4b3a28;
+}
+
+/* === TOP BAR ADMIN === */
+.top-bar-admin {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: linear-gradient(90deg, #ffffff, #f8f3ed);
+  border-bottom: 1px solid #e0d2c2;
+  padding: 12px 28px;
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.top-bar-admin:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.top-bar-left {
+  font-size: 22px;
+  font-weight: 700;
+  color: #4b2e1e;
+  letter-spacing: 0.5px;
+}
+
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.notif-icon {
+  color: #6a462f;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.notif-icon:hover {
+  transform: scale(1.15);
+  color: #c89a6a;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  background: #fff;
+  border-radius: 30px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.profile-info:hover {
+  background: #f7f2ec;
+  transform: scale(1.02);
+}
+
+.profile-pic {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #c89a6a;
+}
+
+.profile-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: #3b2a1a;
+}
+
+/* === COLLAPSED STATE === */
+.admin-layout.collapsed .menu-item span,
+.admin-layout.collapsed .logout span,
+.admin-layout.collapsed .logo-text {
+  display: none;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .sidebar {
+    width: 200px;
+  }
+  .main-content {
+    margin-left: 200px;
+    padding: 25px;
+  }
+  .top-bar-left {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    position: fixed;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 50;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .top-bar-admin {
+    border-radius: 0;
+  }
+}

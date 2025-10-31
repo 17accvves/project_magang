@@ -1,7 +1,6 @@
-/* ProfileCafe.css */
 .profile-cafe-container {
   padding: 20px;
-  background-color: #F7F3EF;
+  background-color: #f7f3ef;
   min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
 }
@@ -22,6 +21,7 @@
   position: relative;
   width: 400px;
   border-radius: 10px;
+  background: #e6d8c7;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
@@ -31,6 +31,7 @@
   height: 290px;
   object-fit: cover;
   border-radius: 10px;
+  
 }
 
 .delete-btn {
@@ -59,7 +60,7 @@
 }
 
 .info-card {
-  background: #FFF4E6;
+  background: #e6d8c7;
   padding: 20px;
   border-radius: 15px;
   flex: 1;
@@ -115,8 +116,45 @@
   background-color: #b99a70;
 }
 
+/* GALERI */
 .gallery-section {
   margin-top: 30px;
+}
+
+.gallery-card {
+  background: #e6d8c7;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  margin-top: 15px;
+}
+
+.gallery-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #5b3e2b;
+}
+
+.add-image {
+  margin-bottom: 15px;
+}
+
+.add-image-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #8c6d5c;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.add-image-btn:hover {
+  background-color: #755645;
 }
 
 .gallery-grid {
@@ -158,7 +196,7 @@
   font-size: 12px;
 }
 
-/* ProfileCafe.css */
+/* POPUP EDIT */
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -224,4 +262,3 @@
 .cancel-btn:hover {
   background-color: #d32f2f;
 }
-

@@ -1,6 +1,15 @@
 // ProfileCafe.jsx
 import React, { useState } from "react";
-import { FaTrash, FaInstagram, FaFacebook, FaTiktok, FaPhone, FaClock, FaTimes } from "react-icons/fa";
+import {
+  FaTrash,
+  FaInstagram,
+  FaFacebook,
+  FaTiktok,
+  FaPhone,
+  FaClock,
+  FaTimes,
+  FaPlus,
+} from "react-icons/fa";
 import "./ProfileCafe.css";
 
 const initialGallery = [
@@ -43,6 +52,17 @@ function ProfileCafe() {
     setGallery(gallery.filter((img) => img.id !== id));
   };
 
+  const handleAddImage = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const newImage = {
+        id: gallery.length + 1,
+        src: URL.createObjectURL(file),
+      };
+      setGallery([...gallery, newImage]);
+    }
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name in formData.jamOperasional) {
@@ -69,9 +89,14 @@ function ProfileCafe() {
     <div className="profile-cafe-container">
       <h2 className="profile-title">Profile Cafe</h2>
 
+      {/* Bagian atas */}
       <div className="top-section">
         <div className="main-image-card">
-          <img src="../../src/assets/maincafe.jpg" alt="Main Cafe" className="main-image" />
+          <img
+            src="../../src/assets/maincafe.jpg"
+            alt="Main Cafe"
+            className="main-image"
+          />
           <button className="delete-btn">
             <FaTrash />
           </button>
@@ -83,7 +108,8 @@ function ProfileCafe() {
             <span className="label">Nama :</span> <span>{formData.nama}</span>
           </div>
           <div className="info-row">
-            <span className="label">Alamat :</span> <span>{formData.alamat}</span>
+            <span className="label">Alamat :</span>{" "}
+            <span>{formData.alamat}</span>
           </div>
           <div className="info-row">
             <span className="label">Sosial Media :</span>
@@ -92,7 +118,8 @@ function ProfileCafe() {
             </span>
           </div>
           <div className="info-row">
-            <span className="label">Kontak :</span> <FaPhone /> {formData.telepon}
+            <span className="label">Kontak :</span> <FaPhone />{" "}
+            {formData.telepon}
           </div>
           <div className="info-row">
             <span className="label">Jam Operasional :</span> <FaClock /> 08.00 - 23.00
@@ -113,18 +140,37 @@ function ProfileCafe() {
         </div>
       </div>
 
+      {/* Galeri */}
       <div className="gallery-section">
-        <h3>Tambah Gambar</h3>
-        <div className="gallery-grid">
-          {gallery.map((img, index) => (
-            <div key={img.id} className="gallery-item">
-              <img src={img.src} alt={`Cafe ${index + 1}`} />
-              <button className="delete-btn" onClick={() => handleDeleteImage(img.id)}>
-                <FaTrash />
-              </button>
-              <span className="pagination">{index + 1}/10</span>
-            </div>
-          ))}
+        <div className="gallery-card">
+          {/* Tombol tambah gambar */}
+          <div className="add-image">
+            <label htmlFor="fileInput" className="add-image-btn">
+              <FaPlus /> Tambah Gambar
+            </label>
+            <input
+              id="fileInput"
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleAddImage}
+            />
+          </div>
+
+          <div className="gallery-grid">
+            {gallery.map((img, index) => (
+              <div key={img.id} className="gallery-item">
+                <img src={img.src} alt={`Cafe ${index + 1}`} />
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDeleteImage(img.id)}
+                >
+                  <FaTrash />
+                </button>
+                <span className="pagination">{index + 1}/10</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -181,7 +227,11 @@ function ProfileCafe() {
             ))}
 
             <label>Deskripsi:</label>
-            <textarea name="deskripsi" value={formData.deskripsi} onChange={handleInputChange} />
+            <textarea
+              name="deskripsi"
+              value={formData.deskripsi}
+              onChange={handleInputChange}
+            />
 
             <div className="popup-buttons">
               <button className="cancel-btn" onClick={() => setShowEdit(false)}>

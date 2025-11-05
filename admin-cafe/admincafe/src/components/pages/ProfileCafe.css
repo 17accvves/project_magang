@@ -17,6 +17,7 @@
   flex-wrap: wrap;
 }
 
+/* Kartu gambar utama */
 .main-image-card {
   position: relative;
   width: 400px;
@@ -31,7 +32,6 @@
   height: 290px;
   object-fit: cover;
   border-radius: 10px;
-  
 }
 
 .delete-btn {
@@ -59,6 +59,7 @@
   font-size: 14px;
 }
 
+/* Kartu info profil */
 .info-card {
   background: #e6d8c7;
   padding: 20px;
@@ -84,6 +85,7 @@
   font-size: 18px;
 }
 
+/* Tombol edit dan simpan */
 .buttons {
   margin-top: 20px;
   display: flex;
@@ -116,7 +118,7 @@
   background-color: #b99a70;
 }
 
-/* GALERI */
+/* ========== GALERI ========== */
 .gallery-section {
   margin-top: 30px;
 }
@@ -196,7 +198,7 @@
   font-size: 12px;
 }
 
-/* POPUP EDIT */
+/* ========== POPUP EDIT ========== */
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -261,4 +263,33 @@
 
 .cancel-btn:hover {
   background-color: #d32f2f;
+}
+
+/* ========== TAMBAHAN UNTUK JAM OPERASIONAL ========== */
+.day-time-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+
+.day-label {
+  width: 80px;
+  text-transform: capitalize;
+  font-weight: 500;
+  color: #4a3628;
+}
+
+.day-time-row input[type="time"] {
+  padding: 6px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  background: #fffdf9;
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+.day-time-row input[type="time"]:focus {
+  border-color: #8c6d5c;
+  outline: none;
 }

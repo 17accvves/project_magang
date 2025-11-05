@@ -1,0 +1,156 @@
+.ulasan-container {
+  background-color: #f6efe7;
+  border-radius: 16px;
+  padding: 30px;
+  font-family: "Segoe UI", sans-serif;
+  color: #4b2e0f;
+}
+
+.ulasan-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.ulasan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 25px;
+}
+
+.ulasan-card {
+  background: #fffaf3;
+  border-radius: 20px;
+  padding: 20px;
+  border: 1.5px solid #d4b896;
+  box-shadow: 0 3px 5px rgba(180, 140, 90, 0.2);
+  transition: all 0.2s ease-in-out;
+}
+
+.ulasan-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(180, 140, 90, 0.25);
+}
+
+.ulasan-date {
+  font-size: 14px;
+  color: #7a5d3a;
+  margin-bottom: 5px;
+}
+
+.ulasan-stars {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 10px;
+}
+
+.ulasan-text {
+  background: #e6d5b8;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.ulasan-image {
+  width: 100%;
+  border-radius: 10px;
+  margin: 8px 0;
+  height: 140px;
+  object-fit: cover;
+  border: 1px solid #c7a982;
+}
+
+.balas-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0077ff;
+  color: white;
+  border: none;
+  padding: 7px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  gap: 6px;
+  font-weight: 500;
+  margin-top: 6px;
+  transition: background 0.2s ease-in-out;
+}
+
+.balas-btn:hover {
+  background-color: #005fcc;
+}
+
+.reply-section {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reply-input {
+  width: 100%;
+  min-height: 60px;
+  border-radius: 10px;
+  border: 1px solid #b9935b;
+  padding: 10px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.reply-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.save-reply-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.cancel-reply-btn {
+  background-color: #d4b896;
+  color: #4b2e0f;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.balasan-admin {
+  background: #e6d5b8;
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  position: relative;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-reply {
+  color: #d9534f;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.delete-reply:hover {
+  color: #a93226;
+}
+
+.scroll-indicator {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.scroll-icon {
+  font-size: 24px;
+  color: #b5895a;
+  cursor: pointer;
+}

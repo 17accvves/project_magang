@@ -1,0 +1,392 @@
+/* === Container & Header === */
+.menu-container {
+  background: #f2dcc3;
+  padding: 20px;
+  border-radius: 12px;
+  font-family: Arial, sans-serif;
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.menu-header h2 {
+  font-size: 22px;
+  color: #333;
+}
+
+.add-menu-btn {
+  background: #c69d6b;
+  padding: 10px 18px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.add-menu-btn:hover {
+  background: #b48958;
+}
+
+/* === Search Bar === */
+.search-container {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1.5px solid #c69d6b;
+  border-radius: 25px;
+  padding: 6px 14px;
+  width: 260px;
+  margin-bottom: 18px;
+  transition: all 0.3s ease;
+}
+
+.search-container:focus-within {
+  box-shadow: 0 0 5px rgba(198, 157, 107, 0.5);
+}
+
+.search-icon {
+  color: #c69d6b;
+  margin-right: 8px;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  background: transparent;
+}
+
+.no-result {
+  text-align: center;
+  color: #777;
+  padding: 20px 0;
+  font-style: italic;
+}
+
+/* === Table === */
+.menu-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff4e5;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.menu-table thead {
+  background: #e2d4c4;
+  font-weight: bold;
+  text-align: center;
+}
+
+.menu-table th,
+.menu-table td {
+  padding: 12px 10px;
+  text-align: center;
+  border-bottom: 1px solid #ebdcca;
+  font-size: 14px;
+}
+
+.menu-image {
+  width: 70px;
+  height: 55px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.menu-name {
+  font-size: 14px;
+}
+
+.menu-price-cell {
+  color: #000;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #444;
+  font-size: 13px;
+}
+
+.new-price {
+  color: red;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.center {
+  text-align: center;
+}
+
+/* === Status Tag / Button === */
+.status-tag,
+.status-btn {
+  padding: 4px 10px;
+  border-radius: 12px;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.status-tag.active,
+.status-btn.active {
+  background: #00c896; /* hijau */
+}
+
+.status-tag.inactive,
+.status-btn.inactive {
+  background: #ff7878; /* merah */
+}
+
+/* === Action Buttons === */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  color: #333;
+}
+
+.edit-icon,
+.delete-icon {
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+
+.edit-icon:hover {
+  color: #007bff;
+}
+
+.delete-icon:hover {
+  color: red;
+}
+
+/* === Popup Form === */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.popup-form {
+  background: #f5e0c9;
+  padding: 25px;
+  border-radius: 12px;
+  width: 350px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  animation: popupFadeIn 0.3s ease;
+}
+
+.popup-form h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.popup-form input,
+.popup-form select {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #ecdcd5;
+  margin-bottom: 12px;
+  outline: none;
+  font-size: 14px;
+}
+
+/* === Date section inside popup === */
+.date-section {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.date-section label {
+  font-size: 13px;
+  color: #333;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.date-inputs {
+  display: flex;
+  gap: 8px;
+}
+
+/* === Image preview === */
+.preview-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+  margin-top: 8px;
+}
+
+/* === Popup Buttons === */
+.popup-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.save-btn {
+  background: linear-gradient(to right, #3b73ff, #1a3ca4);
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cancel-btn {
+  background: #c4b3a0;
+  color: #333;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.save-btn:hover {
+  background: linear-gradient(to right, #2f5fd1, #102a73);
+}
+
+.cancel-btn:hover {
+  background: #b69a83;
+}
+
+/* === Popup Animation === */
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Responsive Adjustment === */
+@media (max-width: 768px) {
+  .menu-container {
+    padding: 12px;
+  }
+
+  .menu-table th,
+  .menu-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .menu-image {
+    width: 50px;
+    height: 40px;
+  }
+
+  .search-container {
+    width: 100%;
+  }
+
+  .popup-form {
+    width: 90%;
+  }
+}
+.error-banner {
+  background: #ff4757;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.test-btn {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.test-btn:hover {
+  background: #2980b9;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.refresh-btn {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.refresh-btn:hover {
+  background: #219653;
+}
+
+.table-info {
+  margin: 10px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.no-image {
+  width: 50px;
+  height: 50px;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: #999;
+  border-radius: 4px;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: #666;
+}

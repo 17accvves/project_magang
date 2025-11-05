@@ -1,0 +1,153 @@
+.event-container {
+  padding: 30px;
+  background-color: #e8d4b8;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  color: #4a2b0f;
+}
+
+.event-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.event-tab-container {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.event-tab {
+  background: #d9b88b;
+  color: #4a2b0f;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.event-tab.active {
+  background: #b57b3f;
+  color: #fff;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.event-tab:hover {
+  background: #c6925d;
+  color: white;
+}
+
+.event-table-container {
+  background: #fff;
+  border-radius: 15px;
+  overflow-x: auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.event-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.event-table th,
+.event-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  font-size: 14px;
+}
+
+.event-table th {
+  background: #f7f3ef;
+  font-weight: bold;
+}
+
+.menu-select {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 5px 10px;
+}
+
+.approval-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.approve-btn,
+.reject-btn {
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.approve-btn {
+  background: #4caf50;
+}
+
+.reject-btn {
+  background: #f44336;
+}
+
+.approve-btn:hover,
+.reject-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Pagination */
+.event-pagination {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.event-pagination select {
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.pagination-btns {
+  display: flex;
+  gap: 5px;
+  margin-left: auto;
+}
+
+.pagination-btns button {
+  border: none;
+  background: #f5e3c3;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.pagination-btns button.active {
+  background: #b57b3f;
+  color: white;
+}
+
+.pagination-btns button:hover {
+  background: #d0b48a;
+}
+
+/* Responsif */
+@media (max-width: 900px) {
+  .event-tab-container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .event-table th,
+  .event-table td {
+    font-size: 12px;
+  }
+}

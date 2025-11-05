@@ -1,5 +1,5 @@
 // ProfileCafe.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaTrash,
   FaInstagram,
@@ -22,32 +22,76 @@ const initialGallery = [
 function ProfileCafe() {
   const [gallery, setGallery] = useState(initialGallery);
   const [showEdit, setShowEdit] = useState(false);
+  const [statusBuka, setStatusBuka] = useState("");
 
   const [formData, setFormData] = useState({
     nama: "Yotta",
-    alamat: "Jl. Pettrani Raya No.40",
-    facebook: "",
-    tiktok: "",
-    instagram: "",
+    alamat: "Jl. Pettarani Raya No.40",
+    facebook: "https://facebook.com/",
+    tiktok: "https://www.tiktok.com/@",
+    instagram: "https://www.instagram.com/",
     telepon: "+62 822-2222-2222",
     jamOperasional: {
-      senin: "",
-      selasa: "",
-      rabu: "",
-      kamis: "",
-      jumat: "",
-      sabtu: "",
-      minggu: "",
+      senin: { buka: "08:00", tutup: "23:00" },
+      selasa: { buka: "08:00", tutup: "23:00" },
+      rabu: { buka: "08:00", tutup: "23:00" },
+      kamis: { buka: "08:00", tutup: "23:00" },
+      jumat: { buka: "08:00", tutup: "23:00" },
+      sabtu: { buka: "08:00", tutup: "23:00" },
+      minggu: { buka: "08:00", tutup: "23:00" },
     },
     fasilitas: {
-      wifi: false,
-      liveMusic: false,
-      outdoor: false,
+      wifi: true,
+      liveMusic: true,
+      outdoor: true,
       airConditioner: false,
     },
     deskripsi: "Lorem ipsum dolor sit amet, consectetur.",
   });
 
+  // === LOGIKA CEK HARI DAN JAM BUKA ===
+  useEffect(() => {
+    const updateStatus = () => {
+      const hariList = [
+        "minggu",
+        "senin",
+        "selasa",
+        "rabu",
+        "kamis",
+        "jumat",
+        "sabtu",
+      ];
+
+      const now = new Date();
+      const dayIndex = now.getDay();
+      const currentDay = hariList[dayIndex];
+      const currentTime = now.getHours() * 60 + now.getMinutes();
+
+      const jadwal = formData.jamOperasional[currentDay];
+      const [bukaH, bukaM] = jadwal.buka.split(":").map(Number);
+      const [tutupH, tutupM] = jadwal.tutup.split(":").map(Number);
+
+      const bukaMinutes = bukaH * 60 + bukaM;
+      const tutupMinutes = tutupH * 60 + tutupM;
+
+      const isOpen =
+        currentTime >= bukaMinutes && currentTime <= tutupMinutes;
+
+      setStatusBuka({
+        hari: currentDay.charAt(0).toUpperCase() + currentDay.slice(1),
+        buka: jadwal.buka,
+        tutup: jadwal.tutup,
+        status: isOpen ? "Buka Sekarang" : "Tutup Sekarang",
+        warna: isOpen ? "#00c896" : "#ff7878",
+      });
+    };
+
+    updateStatus();
+    const interval = setInterval(updateStatus, 60000);
+    return () => clearInterval(interval);
+  }, [formData]);
+
+  // === Fungsi lainnya ===
   const handleDeleteImage = (id) => {
     setGallery(gallery.filter((img) => img.id !== id));
   };
@@ -64,16 +108,23 @@ function ProfileCafe() {
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    if (name in formData.jamOperasional) {
+    const { name, value, type, checked, dataset } = e.target;
+
+    if (dataset.day && dataset.field) {
       setFormData({
         ...formData,
-        jamOperasional: { ...formData.jamOperasional, [name]: value },
+        jamOperasional: {
+          ...formData.jamOperasional,
+          [dataset.day]: {
+            ...formData.jamOperasional[dataset.day],
+            [dataset.field]: value,
+          },
+        },
       });
     } else if (name in formData.fasilitas) {
       setFormData({
         ...formData,
-        fasilitas: { ...formData.fasilitas, [name]: e.target.checked },
+        fasilitas: { ...formData.fasilitas, [name]: checked },
       });
     } else {
       setFormData({ ...formData, [name]: value });
@@ -85,11 +136,26 @@ function ProfileCafe() {
     setShowEdit(false);
   };
 
+  // === Buka link sosial media ===
+  const openSocialLink = (platform) => {
+    const link = formData[platform];
+    if (!link || link.trim() === "" || link === "https://") {
+      alert(`Link ${platform} belum diatur!`);
+      return;
+    }
+
+    // pastikan ada protokol
+    const finalLink = link.startsWith("http")
+      ? link
+      : `https://${link}`;
+    window.open(finalLink, "_blank");
+  };
+
   return (
     <div className="profile-cafe-container">
       <h2 className="profile-title">Profile Cafe</h2>
 
-      {/* Bagian atas */}
+      {/* Bagian Atas */}
       <div className="top-section">
         <div className="main-image-card">
           <img
@@ -111,21 +177,52 @@ function ProfileCafe() {
             <span className="label">Alamat :</span>{" "}
             <span>{formData.alamat}</span>
           </div>
+
+          {/* === Bagian Sosial Media === */}
           <div className="info-row">
             <span className="label">Sosial Media :</span>
             <span className="social-icons">
-              <FaInstagram /> <FaTiktok /> <FaFacebook />
+              <FaInstagram
+                className="social-icon"
+                onClick={() => openSocialLink("instagram")}
+              />
+              <FaTiktok
+                className="social-icon"
+                onClick={() => openSocialLink("tiktok")}
+              />
+              <FaFacebook
+                className="social-icon"
+                onClick={() => openSocialLink("facebook")}
+              />
             </span>
           </div>
+
           <div className="info-row">
             <span className="label">Kontak :</span> <FaPhone />{" "}
             {formData.telepon}
           </div>
+
+          {/* Menampilkan Hari dan Status Buka */}
           <div className="info-row">
-            <span className="label">Jam Operasional :</span> <FaClock /> 08.00 - 23.00
+            <span className="label">Jam Operasional ({statusBuka.hari}) :</span>{" "}
+            <FaClock /> {statusBuka.buka} - {statusBuka.tutup}
+            <span
+              style={{
+                marginLeft: "10px",
+                color: "white",
+                background: statusBuka.warna,
+                padding: "3px 8px",
+                borderRadius: "10px",
+                fontSize: "12px",
+              }}
+            >
+              {statusBuka.status}
+            </span>
           </div>
+
           <div className="info-row">
-            <span className="label">Fasilitas :</span> ✔ Wifi ✔ Live Music ✔ Outdoor
+            <span className="label">Fasilitas :</span> ✔ Wifi ✔ Live Music ✔
+            Outdoor
           </div>
           <div className="info-row">
             <span className="label">Deskripsi :</span> {formData.deskripsi}
@@ -143,7 +240,6 @@ function ProfileCafe() {
       {/* Galeri */}
       <div className="gallery-section">
         <div className="gallery-card">
-          {/* Tombol tambah gambar */}
           <div className="add-image">
             <label htmlFor="fileInput" className="add-image-btn">
               <FaPlus /> Tambah Gambar
@@ -203,11 +299,23 @@ function ProfileCafe() {
 
             <label>Jam Operasional:</label>
             {Object.keys(formData.jamOperasional).map((day) => (
-              <div key={day}>
-                <span>{day}:</span>
+              <div key={day} className="day-time-row">
+                <span className="day-label">
+                  {day.charAt(0).toUpperCase() + day.slice(1)}:
+                </span>
                 <input
-                  name={day}
-                  value={formData.jamOperasional[day]}
+                  type="time"
+                  data-day={day}
+                  data-field="buka"
+                  value={formData.jamOperasional[day].buka}
+                  onChange={handleInputChange}
+                />
+                <span> - </span>
+                <input
+                  type="time"
+                  data-day={day}
+                  data-field="tutup"
+                  value={formData.jamOperasional[day].tutup}
                   onChange={handleInputChange}
                 />
               </div>

@@ -26,6 +26,9 @@ import PromoPage from "./pages/Promo";
 import EventPage from "./pages/Event";
 import LaporanPage from "./pages/Laporan";
 
+// === IMPORT ERROR BOUNDARY ===
+import ErrorBoundary from "./ErrorBoundary";
+
 function Admincafe() {
   const [activeMenu, setActiveMenu] = useState("Dashboard");
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -59,7 +62,11 @@ function Admincafe() {
       case "Menu":
         return <MenuPage />;
       case "Ulasan":
-        return <UlasanPage />;
+        return (
+          <ErrorBoundary>
+            <UlasanPage />
+          </ErrorBoundary>
+        );
       case "Promo":
         return <PromoPage />;
       case "Event":

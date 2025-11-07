@@ -27,24 +27,74 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+.image-container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  width: 100%;
+}
+
+.image-upload-label {
+  display: block;
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+}
+
 .main-image {
   width: 100%;
   height: 290px;
   object-fit: cover;
   border-radius: 10px;
+  display: block;
 }
 
-.delete-btn {
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 10px;
+}
+
+.image-upload-label:hover .image-overlay {
+  opacity: 1;
+}
+
+.camera-icon {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.delete-profile-btn {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: #ff4d4f;
-  border: none;
+  background: rgba(255, 0, 0, 0.8);
   color: white;
-  padding: 6px;
-  border-radius: 5px;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  font-size: 14px;
+  z-index: 10;
+  transition: background 0.3s ease;
+}
+
+.delete-profile-btn:hover {
+  background: rgba(255, 0, 0, 1);
 }
 
 .verified {
@@ -71,11 +121,14 @@
 
 .info-row {
   margin-bottom: 12px;
+  display: flex;
+  align-items: flex-start;
 }
 
 .label {
   font-weight: bold;
   margin-right: 5px;
+  min-width: 120px;
 }
 
 .social-icons {
@@ -83,6 +136,16 @@
   gap: 10px;
   align-items: center;
   font-size: 18px;
+}
+
+.social-icon {
+  cursor: pointer;
+  transition: color 0.3s ease;
+  color: #5b3e2b;
+}
+
+.social-icon:hover {
+  color: #8c6d5c;
 }
 
 /* Tombol edit dan simpan */
@@ -112,13 +175,20 @@
 
 .save-btn {
   background-color: #d2b68c;
+  color: #5b3e2b;
 }
 
 .save-btn:hover {
   background-color: #b99a70;
 }
 
-/* ========== GALERI ========== */
+.save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #ccc;
+}
+
+/* ========== GALERI HEADER & COUNTER ========== */
 .gallery-section {
   margin-top: 30px;
 }
@@ -131,11 +201,48 @@
   margin-top: 15px;
 }
 
+.gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #d2b68c;
+}
+
 .gallery-title {
   font-size: 22px;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin: 0;
   color: #5b3e2b;
+}
+
+.gallery-counter {
+  display: flex;
+  align-items: center;
+}
+
+.counter-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #5b3e2b;
+  background: #f8f9fa;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #d2b68c;
+}
+
+.counter-full {
+  background: #fff5f5;
+  color: #dc3545;
+  border-color: #f5c6cb;
+  font-weight: bold;
+}
+
+.warning-icon {
+  margin-left: 5px;
+  color: #dc3545;
+  font-size: 12px;
 }
 
 .add-image {
@@ -159,42 +266,135 @@
   background-color: #755645;
 }
 
+/* Tombol tambah gambar disabled */
+.add-image-btn.disabled {
+  background-color: #6c757d !important;
+  cursor: not-allowed !important;
+  opacity: 0.6;
+}
+
+.add-image-btn.disabled:hover {
+  background-color: #6c757d !important;
+  transform: none !important;
+}
+
+/* Warning message */
+.max-warning {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff5f5;
+  color: #dc3545;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #f5c6cb;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.max-warning .warning-icon {
+  font-size: 14px;
+}
+
 .gallery-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
 }
 
+/* PERBAIKAN UTAMA: Gallery Item */
 .gallery-item {
   position: relative;
   width: 200px;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  background: #f8f9fa;
+}
+
+.gallery-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .gallery-item img {
   width: 100%;
-  border-radius: 10px;
-  object-fit: cover;
   height: 150px;
+  object-fit: cover;
+  display: block;
+  border-radius: 10px;
 }
 
+/* PERBAIKAN: Tombol hapus yang lebih jelas dan selalu terlihat */
 .gallery-item .delete-btn {
-  top: 5px;
-  right: 5px;
-  padding: 4px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  background: rgba(220, 53, 69, 0.95);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
   font-size: 12px;
+  transition: all 0.3s ease;
+  z-index: 20;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
 }
 
+.gallery-item .delete-btn:hover {
+  background: #dc3545;
+  transform: scale(1.15);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Efek hover pada gallery item untuk highlight tombol */
+.gallery-item:hover .delete-btn {
+  background: rgba(220, 53, 69, 1);
+}
+
+/* PERBAIKAN: Pagination number */
 .gallery-item .pagination {
   position: absolute;
-  bottom: 5px;
-  left: 5px;
-  background: #00000088;
+  bottom: 8px;
+  left: 8px;
+  background: rgba(0, 0, 0, 0.8);
   color: white;
-  padding: 2px 5px;
-  border-radius: 5px;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: bold;
+  z-index: 10;
+  backdrop-filter: blur(5px);
+}
+
+/* Empty gallery state */
+.empty-gallery {
+  width: 100%;
+  text-align: center;
+  padding: 40px 20px;
+  color: #8c6d5c;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 2px dashed #e6d8c7;
+}
+
+.empty-gallery p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.empty-gallery small {
+  display: block;
+  margin-top: 5px;
+  color: #8c6d5c;
   font-size: 12px;
 }
 
@@ -214,55 +414,106 @@
 
 .popup-content {
   background: #f5e4d8;
-  padding: 20px;
+  padding: 30px;
   border-radius: 15px;
   width: 500px;
   max-height: 90%;
   overflow-y: auto;
   position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.popup-content h2 {
+  margin-bottom: 20px;
+  color: #5b3e2b;
+  text-align: center;
 }
 
 .close-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   background: transparent;
   border: none;
   font-size: 20px;
   cursor: pointer;
+  color: #5b3e2b;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #8c6d5c;
+}
+
+.popup-content label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: #5b3e2b;
 }
 
 .popup-content input,
 .popup-content textarea {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
+  padding: 10px;
+  margin-bottom: 15px;
   border-radius: 8px;
   border: 1px solid #ccc;
+  background: #fffdf9;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-.popup-content label {
-  font-weight: bold;
+.popup-content input:focus,
+.popup-content textarea:focus {
+  outline: none;
+  border-color: #8c6d5c;
+  box-shadow: 0 0 0 2px rgba(140, 109, 92, 0.2);
 }
 
-.popup-buttons {
+.popup-content textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Sosial Media Input */
+.social-input {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 10px;
   gap: 10px;
-  margin-top: 20px;
 }
 
-.cancel-btn {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  padding: 8px 12px;
+.platform-label {
+  min-width: 80px;
+  text-transform: capitalize;
+  font-weight: 500;
+  color: #5b3e2b;
+}
+
+/* Fasilitas Grid */
+.facilities-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.facility-item {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.facility-item input[type="checkbox"] {
+  margin-right: 8px;
+  transform: scale(1.2);
+}
+
+.facility-item label {
+  margin: 0;
   cursor: pointer;
-  border-radius: 5px;
-}
-
-.cancel-btn:hover {
-  background-color: #d32f2f;
+  font-weight: normal;
+  color: #5b3e2b;
 }
 
 /* ========== TAMBAHAN UNTUK JAM OPERASIONAL ========== */
@@ -270,7 +521,12 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 6px 0;
+  margin: 8px 0;
+  padding: 8px;
+  background: #fffdf9;
+  border-radius: 8px;
+  border: 1px solid #e6d8c7;
+  flex-wrap: wrap;
 }
 
 .day-label {
@@ -287,9 +543,237 @@
   background: #fffdf9;
   font-size: 13px;
   transition: 0.2s;
+  flex: 1;
 }
 
 .day-time-row input[type="time"]:focus {
   border-color: #8c6d5c;
   outline: none;
+}
+
+/* ========== STYLING UNTUK FORMAT WAKTU 12 JAM ========== */
+/* Style untuk tampilan waktu di info card */
+.operational-time {
+  font-weight: 500;
+  color: #333;
+  margin-left: 5px;
+}
+
+/* Style untuk display format 12 jam di popup edit */
+.time-display {
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+  min-width: 70px;
+  display: inline-block;
+  background: #f8f9fa;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #e9ecef;
+}
+
+/* Style untuk info row jam operasional */
+.info-row .operational-time {
+  background: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #e6d8c7;
+  font-weight: 600;
+  color: #5b3e2b;
+}
+
+/* Highlight untuk status buka/tutup */
+.info-row span[style*="background"] {
+  font-weight: 600;
+  font-size: 11px;
+  padding: 4px 10px !important;
+}
+
+/* Popup Buttons */
+.popup-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px solid #e6d8c7;
+}
+
+.cancel-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #d32f2f;
+}
+
+.cancel-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Loading State */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.loading-container h2 {
+  margin-bottom: 20px;
+  color: #5b3e2b;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e6d8c7;
+  border-radius: 50%;
+  border-top-color: #8c6d5c;
+  animation: spin 1s ease-in-out infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .top-section {
+    flex-direction: column;
+  }
+  
+  .main-image-card {
+    width: 100%;
+  }
+  
+  .popup-content {
+    width: 90%;
+    margin: 20px;
+  }
+  
+  .facilities-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .info-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .label {
+    min-width: auto;
+    margin-bottom: 5px;
+  }
+  
+  /* Responsive gallery */
+  .gallery-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .gallery-counter {
+    align-self: flex-end;
+  }
+  
+  .gallery-grid {
+    justify-content: center;
+  }
+  
+  .gallery-item {
+    width: calc(50% - 10px);
+    max-width: 180px;
+  }
+  
+  .gallery-item .delete-btn {
+    top: 6px;
+    right: 6px;
+    width: 26px;
+    height: 26px;
+    font-size: 11px;
+  }
+  
+  /* Responsive untuk jam operasional di popup */
+  .day-time-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .day-time-row input[type="time"] {
+    width: 100%;
+  }
+  
+  .time-display {
+    align-self: flex-end;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-item {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .profile-cafe-container {
+    padding: 15px;
+  }
+  
+  .popup-content {
+    padding: 20px;
+  }
+  
+  .popup-buttons {
+    flex-direction: column;
+  }
+  
+  .cancel-btn,
+  .save-btn {
+    width: 100%;
+  }
+}
+
+/* Style untuk input yang disabled */
+input:disabled {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Style untuk status verified */
+.verified {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Smooth transitions untuk semua interactive elements */
+button, input, textarea, .gallery-item, .social-icon {
+  transition: all 0.3s ease;
+}
+
+/* Focus states untuk accessibility */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #8c6d5c;
+  outline-offset: 2px;
 }

@@ -58,14 +58,6 @@ const testImageLoad = (url) => {
   });
 };
 
-// Fungsi untuk mendapatkan nama hari dalam Bahasa Indonesia
-const getHariIndonesia = () => {
-  const hariList = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
-  const now = new Date();
-  const dayIndex = now.getDay();
-  return hariList[dayIndex];
-};
-
 function ProfileCafe() {
   const [gallery, setGallery] = useState([]);
   const [showEdit, setShowEdit] = useState(false);
@@ -772,7 +764,6 @@ function ProfileCafe() {
               </button>
             )}
           </div>
-          {formData.verified && <div className="verified">✔ Verified</div>}
         </div>
 
         <div className="info-card">
@@ -845,16 +836,6 @@ function ProfileCafe() {
             <button 
               className="debug-btn" 
               onClick={debugOperationalHours}
-              style={{
-                background: '#ff6b6b',
-                color: 'white',
-                padding: '8px 12px',
-                border: 'none',
-                borderRadius: '5px',
-                cursor: 'pointer',
-                marginLeft: '10px',
-                fontSize: '12px'
-              }}
               title="Debug masalah jam operasional"
             >
               <FaBug /> Debug Jam
@@ -864,16 +845,6 @@ function ProfileCafe() {
               onClick={() => {
                 fetchCafeProfile();
                 fetchGallery();
-              }}
-              style={{
-                background: '#6c757d',
-                color: 'white',
-                padding: '8px 12px',
-                border: 'none',
-                borderRadius: '5px',
-                cursor: 'pointer',
-                marginLeft: '10px',
-                fontSize: '12px'
               }}
             >
               Refresh Data 🔄

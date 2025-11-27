@@ -39,11 +39,6 @@ const CafeCard = ({ name, rank, reviews, logo, rating }) => (
   </div>
 );
 
-// ==========================================
-// 2. HALAMAN KONTEN (DASHBOARD & CAFE)
-// ==========================================
-
-// --- KONTEN DASHBOARD ---
 const DashboardContent = () => {
     const stats = [
         { title: 'User', value: '01171', icon: '👤', colorClass: 'bg-purple' },

@@ -1,0 +1,88 @@
+{
+  "hash": "bca59bd3",
+  "configHash": "3dffdc3c",
+  "lockfileHash": "d7d6eb8c",
+  "browserHash": "944119a1",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "6169dba7",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "cf25c975",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "445b4af6",
+      "needsInterop": false
+    },
+    "lucide-react": {
+      "src": "../../node_modules/lucide-react/dist/esm/lucide-react.js",
+      "file": "lucide-react.js",
+      "fileHash": "f86c2d74",
+      "needsInterop": false
+    },
+    "react-icons/ai": {
+      "src": "../../node_modules/react-icons/ai/index.mjs",
+      "file": "react-icons_ai.js",
+      "fileHash": "039f71fd",
+      "needsInterop": false
+    },
+    "react-chartjs-2": {
+      "src": "../../node_modules/react-chartjs-2/dist/index.js",
+      "file": "react-chartjs-2.js",
+      "fileHash": "b51c9703",
+      "needsInterop": false
+    },
+    "chart.js": {
+      "src": "../../node_modules/chart.js/dist/chart.js",
+      "file": "chart__js.js",
+      "fileHash": "12572ca3",
+      "needsInterop": false
+    },
+    "react-icons/fa": {
+      "src": "../../node_modules/react-icons/fa/index.mjs",
+      "file": "react-icons_fa.js",
+      "fileHash": "972698cf",
+      "needsInterop": false
+    },
+    "chart.js/auto": {
+      "src": "../../node_modules/chart.js/auto/auto.js",
+      "file": "chart__js_auto.js",
+      "fileHash": "3eb32e6a",
+      "needsInterop": false
+    },
+    "motion/react": {
+      "src": "../../node_modules/motion/dist/es/react.mjs",
+      "file": "motion_react.js",
+      "fileHash": "62d5d074",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-JF7IVAG4": {
+      "file": "chunk-JF7IVAG4.js"
+    },
+    "chunk-77ZEW6EY": {
+      "file": "chunk-77ZEW6EY.js"
+    },
+    "chunk-ZJ3H4KAC": {
+      "file": "chunk-ZJ3H4KAC.js"
+    },
+    "chunk-6ZIYULBS": {
+      "file": "chunk-6ZIYULBS.js"
+    },
+    "chunk-4BPZ7PBZ": {
+      "file": "chunk-4BPZ7PBZ.js"
+    },
+    "chunk-G3PMV62Z": {
+      "file": "chunk-G3PMV62Z.js"
+    }
+  }
+}

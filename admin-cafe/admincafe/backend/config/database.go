@@ -16,7 +16,7 @@ const (
 	port     = 5432
 	user     = "postgres"
 	password = "111122"
-	dbname   = "admincafe_db"
+	dbname   = "carispot_db"
 )
 
 func ConnectDB() {

@@ -1,23 +1,9 @@
 /* Background dengan gradient elegant */
 .ulasan-container {
-  background: linear-gradient(135deg, 
-    #f8f4f0 0%, 
-    #f1e8e0 25%, 
-    #eaddd7 50%, 
-    #f1e8e0 75%, 
-    #f8f4f0 100%);
-  border-radius: 24px;
-  padding: 40px;
-  font-family: "Segoe UI", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-  color: #5d4037;
-  max-width: 1400px;
-  margin: 20px auto;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 
-    0 20px 40px rgba(139, 69, 19, 0.1),
-    0 8px 16px rgba(139, 69, 19, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  background: #f2dcc3;
+  padding: 20px;
+  border-radius: 12px;
+  font-family: Arial, sans-serif;
 }
 
 /* Background pattern overlay */
@@ -36,21 +22,6 @@
   z-index: 0;
 }
 
-.ulasan-container::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  right: -50%;
-  bottom: -50%;
-  background: 
-    linear-gradient(45deg, transparent 65%, rgba(255, 255, 255, 0.1) 75%, transparent 85%),
-    linear-gradient(-45deg, transparent 65%, rgba(255, 255, 255, 0.1) 75%, transparent 85%);
-  background-size: 60px 60px;
-  animation: shimmer 8s infinite linear;
-  pointer-events: none;
-  z-index: 0;
-}
 
 @keyframes shimmer {
   0% { transform: translateX(-100px) translateY(-100px); }

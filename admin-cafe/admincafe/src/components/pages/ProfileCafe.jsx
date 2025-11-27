@@ -244,10 +244,15 @@ function ProfileCafe() {
               { hari: "minggu", buka: "08:00", tutup: "17:00" }
             ],
             facilities: [
-              { nama_fasilitas: "wifi", tersedia: false },
-              { nama_fasilitas: "live_music", tersedia: false },
-              { nama_fasilitas: "outdoor", tersedia: false },
-              { nama_fasilitas: "air_conditioner", tersedia: false }
+            { nama_fasilitas: "wifi", tersedia: false },
+            { nama_fasilitas: "smoking_area", tersedia: false},
+            { nama_fasilitas: "indoor", tersedia: false},
+            { nama_fasilitas: "parkiran", tersedia: false},
+            { nama_fasilitas: "musholla", tersedia: false},
+            { nama_fasilitas: "spot_foto", tersedia: false},
+            { nama_fasilitas: "live_music", tersedia: false },
+            { nama_fasilitas: "outdoor", tersedia: false },
+            { nama_fasilitas: "air_conditioner", tersedia: false }
             ]
           });
         } else {
@@ -261,7 +266,7 @@ function ProfileCafe() {
               buka: convertISOToTime(hour.buka),
               tutup: convertISOToTime(hour.tutup)
             }));
-            console.log('🕒 Converted operational hours:', operationalHours);
+            console.log('Converted operational hours:', operationalHours);
           } else {
             operationalHours = [
               { hari: "senin", buka: "08:00", tutup: "17:00" },
@@ -284,10 +289,15 @@ function ProfileCafe() {
             ],
             operational_hours: operationalHours,
             facilities: data.facilities || [
-              { nama_fasilitas: "wifi", tersedia: false },
-              { nama_fasilitas: "live_music", tersedia: false },
-              { nama_fasilitas: "outdoor", tersedia: false },
-              { nama_fasilitas: "air_conditioner", tersedia: false }
+            { nama_fasilitas: "wifi", tersedia: false },
+            { nama_fasilitas: "smoking_area", tersedia: false},
+            { nama_fasilitas: "indoor", tersedia: false},
+            { nama_fasilitas: "parkiran", tersedia: false},
+            { nama_fasilitas: "musholla", tersedia: false},
+            { nama_fasilitas: "spot_foto", tersedia: false},
+            { nama_fasilitas: "live_music", tersedia: false },
+            { nama_fasilitas: "outdoor", tersedia: false },
+            { nama_fasilitas: "air_conditioner", tersedia: false }
             ]
           }));
 
@@ -321,6 +331,11 @@ function ProfileCafe() {
           ],
           facilities: [
             { nama_fasilitas: "wifi", tersedia: false },
+            { nama_fasilitas: "smoking_area", tersedia: false},
+            { nama_fasilitas: "indoor", tersedia: false},
+            { nama_fasilitas: "parkiran", tersedia: false},
+            { nama_fasilitas: "musholla", tersedia: false},
+            { nama_fasilitas: "spot_foto", tersedia: false},
             { nama_fasilitas: "live_music", tersedia: false },
             { nama_fasilitas: "outdoor", tersedia: false },
             { nama_fasilitas: "air_conditioner", tersedia: false }
@@ -704,6 +719,11 @@ function ProfileCafe() {
     return availableFacilities.map(fac => {
       const names = {
         wifi: "Wifi",
+        smoking_area: "Smoking Area",
+        indoor: "Indoor",
+        parkiran: "Parkiran",
+        musholla: "Musholla",
+        spot_foto: "Spot Foto",
         live_music: "Live Music", 
         outdoor: "Outdoor",
         air_conditioner: "AC"
@@ -997,6 +1017,12 @@ function ProfileCafe() {
                   />
                   <label htmlFor={`facility_${fac.nama_fasilitas}`}>
                     {fac.nama_fasilitas === 'wifi' ? 'Wifi' :
+                     fac.nama_fasilitas === 'indoor' ? 'Indoor' :               
+                     fac.nama_fasilitas === 'smoking_area' ? 'Smoking Area' :
+                     fac.nama_fasilitas === 'indoor' ? 'Indoor' :
+                     fac.nama_fasilitas === 'parkiran' ? 'Parkiran' :
+                     fac.nama_fasilitas === 'musholla' ? 'Musholla' :
+                     fac.nama_fasilitas === 'spot_foto' ? 'Spot Foto' :
                      fac.nama_fasilitas === 'live_music' ? 'Live Music' :
                      fac.nama_fasilitas === 'outdoor' ? 'Outdoor' :
                      fac.nama_fasilitas === 'air_conditioner' ? 'AC' : fac.nama_fasilitas}

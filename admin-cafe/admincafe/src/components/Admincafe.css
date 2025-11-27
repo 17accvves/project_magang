@@ -1,171 +1,208 @@
-/* === LAYOUT UTAMA === */
+/* =======================================
+   LAYOUT UTAMA
+======================================= */
 .admin-layout {
+  width: 100%;
+  height: 100vh;
   display: flex;
-  min-height: 100vh;
-  background: #f7f3ef;
+  background: #f5f6fa;
   font-family: "Poppins", sans-serif;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
-/* === SIDEBAR === */
+/* === COLLAPSE SIDEBAR === */
+.admin-layout.collapsed .sidebar {
+  width: 60px;
+}
+
+.logo-main{
+  margin-right: 10px;
+  margin-left: 50px;
+}
+
+.logo-text {
+  font-family: "Baloo 2", cursive;
+  margin-top: 10px;
+  font-size: 28px;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  transition: opacity 0.2s ease;
+}
+
+/* Hilangkan teks ketika collapse */
+.admin-layout.collapsed .sidebar .logo-text{
+    opacity: 0;
+    display: none;
+    pointer-events: none;
+}
+.admin-layout.collapsed .sidebar .menu-item span,
+.admin-layout.collapsed .sidebar .logout span {
+  opacity: 0;
+  pointer-events: none;
+  display: none;
+}
+
+
+.admin-layout.collapsed .menu {
+  margin-top: 62px;
+}
+.admin-layout.collapsed .logout {
+  padding: 12px 15px;
+  
+}
+
+/* Main content ikut mengecil */
+.admin-layout.collapsed .main-content {
+  margin-left: 60px;
+  width: calc(100% - 70px);
+}
+
+/* =======================================
+   SIDEBAR
+======================================= */
 .sidebar {
   width: 240px;
-  background: linear-gradient(160deg, #6a462f, #d9ba86);
-  color: #fff;
+  height: 100%;
+  background: #ffffff;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 20px 15px;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  padding-top: 0px;
   position: fixed;
   left: 0;
   top: 0;
-  bottom: 0;
-  border-radius: 0 20px 20px 0;
   transition: width 0.3s ease;
+  z-index: 100;
+  overflow: hidden;
 }
 
-.admin-layout.collapsed .sidebar {
-  width: 80px;
+/* LOGO */
+.logo-coffee {
+display: inline-block;
+width: 1em;
+height: 1em;
+object-fit: contain;
+border-radius: 50%;
+transform: translateY(1px);
 }
 
-/* === LOGO SECTION === */
 .logo-section {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 40px;
-  justify-content: center;
-}
-
-.logo-icon {
-  width: 28px;
-  height: 28px;
+  text-align: center;
+  margin-bottom: 25px;
 }
 
 .logo-text {
   font-size: 22px;
-  font-weight: 800;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #A0522D;
+  transition: 0.2s ease;
 }
 
-/* === TOGGLE BUTTON === */
+/* TOGGLE BUTTON */
 .toggle-btn {
   position: absolute;
-  top: 20px;
-  right: -12px;
-  background: #d9ba86;
-  color: #4a2f1b;
+  top: 32px;
+  right: 0px;
+  background: #0091ff;
   border: 2px solid #fff;
+  color: #fff;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  width: 26px;
-  height: 26px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
-  transition: all 0.2s;
-}
-.toggle-btn:hover {
-  background: #fff;
-  color: #6a462f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s ease;
 }
 
-/* === MENU === */
+.toggle-btn:hover {
+  background: #2f3640;
+}
+
+/* =======================================
+   MENU
+======================================= */
 .menu {
+  margin-top: 22px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 8px;
 }
 
 .menu-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 15px;
-  border-radius: 10px;
+  gap: 14px;
+  padding: 12px 20px;
   cursor: pointer;
-  transition: all 0.3s;
-  font-weight: 500;
+  color: #000;
+  transition: 0.2s ease-in-out;
+  border-radius: 6px;
 }
 
 .menu-item:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateX(5px);
+  background: #4e73df;
+  color: #fff;
 }
 
 .menu-item.active {
-  background: rgba(255, 255, 255, 0.25);
+  background: #3498db;
+  color: #fff;
 }
 
-/* === LOGOUT === */
+/* Logout */
 .logout {
+  margin-top: auto;
+  padding: 15px 20px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-top: 40px;
-  padding: 10px 15px;
-  border-radius: 10px;
+  gap: 14px;
   cursor: pointer;
-  transition: background 0.3s;
-  color: #fff;
-  font-weight: 500;
+  color: #ff7675;
+  transition: 0.2s ease;
+  border-radius: 6px;
 }
 
 .logout:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 99, 99, 0.2);
 }
 
-/* === KONTEN UTAMA === */
+/* =======================================
+   MAIN CONTENT
+======================================= */
 .main-content {
-  flex: 1;
   margin-left: 240px;
-  padding: 40px;
-  color: #3b2a1a;
-  transition: margin-left 0.3s ease;
+  width: calc(100% - 240px);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s ease, width 0.3s ease;
 }
 
-.admin-layout.collapsed .main-content {
-  margin-left: 80px;
-}
-
-.main-content h2 {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.main-content p {
-  font-size: 16px;
-  color: #4b3a28;
-}
-
-/* === TOP BAR ADMIN === */
+/* =======================================
+   TOP BAR
+======================================= */
 .top-bar-admin {
+  height: 65px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+
   position: sticky;
   top: 0;
-  z-index: 20;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  background: linear-gradient(90deg, #ffffff, #f8f3ed);
-  border-bottom: 1px solid #e0d2c2;
-  padding: 12px 28px;
-  border-radius: 0 0 14px 14px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-}
-
-.top-bar-admin:hover {
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  transform: translateY(-1px);
+  z-index: 10;
 }
 
 .top-bar-left {
-  font-size: 22px;
-  font-weight: 700;
-  color: #4b2e1e;
-  letter-spacing: 0.5px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #2d3436;
 }
 
 .top-bar-right {
@@ -175,86 +212,39 @@
 }
 
 .notif-icon {
-  color: #6a462f;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: 0.2s ease;
 }
 
 .notif-icon:hover {
-  transform: scale(1.15);
-  color: #c89a6a;
+  color: #40739e;
 }
 
+/* PROFILE SECTION */
 .profile-info {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 6px 10px;
-  background: #fff;
-  border-radius: 30px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.profile-info:hover {
-  background: #f7f2ec;
-  transform: scale(1.02);
 }
 
 .profile-pic {
   width: 38px;
   height: 38px;
-  border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #c89a6a;
+  border-radius: 50%;
 }
 
 .profile-name {
   font-size: 15px;
   font-weight: 500;
-  color: #3b2a1a;
+  color: #2d3436;
 }
 
-/* === COLLAPSED STATE === */
-.admin-layout.collapsed .menu-item span,
-.admin-layout.collapsed .logout span,
-.admin-layout.collapsed .logo-text {
-  display: none;
-}
-
-/* === RESPONSIVE === */
-@media (max-width: 900px) {
-  .sidebar {
-    width: 200px;
-  }
-  .main-content {
-    margin-left: 200px;
-    padding: 25px;
-  }
-  .top-bar-left {
-    font-size: 18px;
-  }
-}
-
-@media (max-width: 700px) {
-  .sidebar {
-    position: fixed;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    z-index: 50;
-  }
-
-  .sidebar.open {
-    transform: translateX(0);
-  }
-
-  .main-content {
-    margin-left: 0;
-    padding: 20px;
-  }
-
-  .top-bar-admin {
-    border-radius: 0;
-  }
+/* =======================================
+   BODY KONTEN
+======================================= */
+.content-body {
+  padding: 25px;
+  height: calc(100% - 65px);
+  overflow-y: auto;
 }

@@ -1,9 +1,10 @@
 .promo-container {
+  background: #f2dcc3;
+  padding: 20px;
+  border-radius: 12px;
+  font-family: Arial, sans-serif;
   display: flex;
   gap: 25px;
-  background: linear-gradient(135deg, #f8f4eb 0%, #f5e3c3 100%);
-  border-radius: 20px;
-  padding: 25px;
   font-family: "Segoe UI", system-ui, sans-serif;
   min-height: 80vh;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
@@ -187,12 +188,23 @@
 
 /* Promo Card Styles */
 .promo-card {
-  background: white;
-  border-radius: 20px;
+  background: #ffffff;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  
+  /* ukuran standar promo-card */
+  width: 100%;
+  max-width: 360px;      /* ukuran ideal 320–360px */
+  min-height: 160px;     /* biar tidak gepeng */
+  
+  padding: 16px;         /* ruang dalam lebih rapi */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .promo-card:hover {
@@ -311,6 +323,7 @@
   font-size: 0.9rem;
   margin-top: 8px;
 }
+
 
 .promo-details {
   margin-bottom: 16px;

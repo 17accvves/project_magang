@@ -14,8 +14,9 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./Admincafe.css";
-import coffeeLogo from "../assets/gambarbiji.png";
+//import coffeeLogo from "../assets/gambarbiji.png";
 import profilePic from "../assets/profile.jpg";
+import coffeeLogo from "../assets/gambarbiji.png";
 
 // === IMPORT HALAMAN ===
 import Dashboard from "./pages/Dashboard";
@@ -82,9 +83,13 @@ function Admincafe() {
     <div className={`admin-layout ${isCollapsed ? "collapsed" : ""}`}>
       {/* === SIDEBAR === */}
       <aside className="sidebar">
-        <div className="logo-section">
-          <img src={coffeeLogo} alt="Coffee" className="logo-icon" />
-          {!isCollapsed && <h1 className="logo-text">Carispot</h1>}
+        <div className="logo-text">
+
+        <span className="logo-main">CARI</span>
+        <span className="logo-spot">Sp</span>
+        <img src={coffeeLogo} alt="coffee bean" className="logo-coffee" />
+        <span className="logo-spot">t</span>
+
         </div>
 
         <button

@@ -27,7 +27,7 @@ const CafeCard = ({ name, rank, reviews, logo, rating }) => (
     <div className="cafe-info">
       <div className="cafe-header-row">
         <h3>{name}</h3>
-        <button className="btn-icon-edit">✏️</button>
+        <button className="btn-icon-edit">✏</button>
       </div>
       <p className="cafe-rank">#{rank} Bulan September</p>
       <div className="cafe-rating">
@@ -260,7 +260,7 @@ const EventContent = () => {
             <h3>Manage Event</h3>
             <div className="manage-item">
                 <span>Edit</span>
-                <button className="btn-icon">✏️</button>
+                <button className="btn-icon">✏</button>
             </div>
             <div className="manage-item">
                 <span>Lihat Riwayat</span>
@@ -413,7 +413,7 @@ const KelolaAkunContent = () => {
   const accountSummaries = [
     { title: 'User', value: '01171', icon: '👤', color: '#fcfcfc' }, // Putih
     { title: 'Cafe', value: '00317', icon: '☕', color: '#fcfcfc' }, // Putih
-    { title: 'Event Organizer', value: '00317', icon: '🗓️', color: '#fcfcfc' }, // Putih
+    { title: 'Event Organizer', value: '00317', icon: '🗓', color: '#fcfcfc' }, // Putih
     { title: 'ADMIN', value: '004', icon: '👨‍💼', color: '#fcfcfc' }, // Putih
   ];
 
@@ -446,7 +446,6 @@ const Sidebar = ({ activePage, setActivePage }) => (
     <div className="sa-logo">
       <span className="brand-bold">CARI</span> <span className="brand-light">Spot</span>
     </div>
-
     <nav className="sa-nav">
       <div 
         className={`nav-item ${activePage === 'dashboard' ? 'active' : ''}`}
@@ -465,7 +464,7 @@ const Sidebar = ({ activePage, setActivePage }) => (
         className={`nav-item ${activePage === 'event' ? 'active' : ''}`}
         onClick={() => setActivePage('event')}
       >
-        <span className="icon">🗓️</span> Event
+        <span className="icon">🗓</span> Event
       </div>
 
       <div 
@@ -484,7 +483,7 @@ const Sidebar = ({ activePage, setActivePage }) => (
     </nav>
 
     <div className="sa-nav-bottom">
-      <div className="nav-item"><span className="icon">⚙️</span> Settings</div>
+      <div className="nav-item"><span className="icon">⚙</span> Settings</div>
       <div className="nav-item"><span className="icon">🚪</span> Logout</div>
     </div>
   </aside>
@@ -496,7 +495,7 @@ const TopHeader = () => (
       <input type="text" placeholder="Cari Cafe/User" />
     </div>
     <div className="header-right">
-      <div className="maintenance-badge">🛠️ MAINTENANCE SERVER</div>
+      <div className="maintenance-badge">🛠 MAINTENANCE SERVER</div>
       <div className="flag-icon">🇮🇩</div>
       <div className="user-profile">
         <div className="avatar-circle">XY</div> 

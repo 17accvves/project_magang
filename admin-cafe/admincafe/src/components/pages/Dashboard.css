@@ -1,9 +1,9 @@
 /* Dashboard container */
 .dashboard {
-  padding: 12px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 0.85rem;
-  background-color: #f5f5f5;
+  background: #f2dcc3;
+  padding: 20px;
+  border-radius: 12px;
+  font-family: Arial, sans-serif;
 }
 
 /* Stats Cards */
@@ -148,3 +148,5 @@
     font-size: 0.65rem;
   }
 }
+
+

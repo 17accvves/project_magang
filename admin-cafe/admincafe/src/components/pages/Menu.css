@@ -14,8 +14,21 @@
 }
 
 .menu-header h2 {
-  font-size: 22px;
   color: #333;
+}
+
+.daftar-title{
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #5d4037;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #8d6e63, #5d4037);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
 }
 
 .add-menu-btn {
@@ -92,6 +105,7 @@
   text-align: center;
   border-bottom: 1px solid #ebdcca;
   font-size: 14px;
+  vertical-align: middle; /* FIX sejajar semua cell */
 }
 
 .menu-image {
@@ -147,19 +161,31 @@
   background: #ff7878; /* merah */
 }
 
-/* === Action Buttons === */
+/* === Action Column FIX === */
+
+/* Kolom header & kolom aksi */
+.menu-table th.actions-col,
+.menu-table td.actions-col {
+  width: 120px;
+  text-align: center;
+}
+
+/* Ikon tetap di tengah vertikal */
 .actions {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  color: #333;
+  align-items: center;
+  gap: 12px;
+  min-height: 24px; /* memastikan row stabil */
 }
 
+/* Ikon seragam */
 .edit-icon,
 .delete-icon {
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   transition: color 0.2s;
+  line-height: 1; /* mencegah naik/turun */
 }
 
 .edit-icon:hover {
@@ -168,6 +194,12 @@
 
 .delete-icon:hover {
   color: red;
+}
+
+/* Header Action sejajar */
+.menu-table thead th.actions-col {
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 /* === Popup Form === */
@@ -212,7 +244,7 @@
   font-size: 14px;
 }
 
-/* === Date section inside popup === */
+/* Date section in popup */
 .date-section {
   text-align: left;
   margin-bottom: 10px;
@@ -230,7 +262,7 @@
   gap: 8px;
 }
 
-/* === Image preview === */
+/* Image preview */
 .preview-image {
   width: 100px;
   height: 100px;
@@ -240,7 +272,7 @@
   margin-top: 8px;
 }
 
-/* === Popup Buttons === */
+/* Popup Buttons */
 .popup-buttons {
   display: flex;
   justify-content: space-between;
@@ -275,19 +307,13 @@
   background: #b69a83;
 }
 
-/* === Popup Animation === */
+/* Popup Animation */
 @keyframes popupFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* === Responsive Adjustment === */
+/* Responsive */
 @media (max-width: 768px) {
   .menu-container {
     padding: 12px;
@@ -312,6 +338,8 @@
     width: 90%;
   }
 }
+
+/* Extra Components */
 .error-banner {
   background: #ff4757;
   color: white;

@@ -250,7 +250,7 @@ const Menu = () => {
   return (
     <div className="menu-container">
       <div className="menu-header">
-        <h2>Daftar Menu</h2>
+        <h2 className="daftar-title">Daftar Menu</h2>
         <div className="header-actions">
           <button className="test-btn" onClick={testConnection}>
             <FaSync /> Test Koneksi
@@ -342,9 +342,11 @@ const Menu = () => {
                     {item.status}
                   </button>
                 </td>
-                <td className="actions">
-                  <FaEdit className="edit-icon" onClick={() => handleEdit(item)} title="Edit" />
-                  <FaTrash className="delete-icon" onClick={() => handleDelete(item.id)} title="Hapus" />
+                <td className="aksi-col">
+                   <div className="actions">
+                     <FaEdit className="edit-icon" onClick={() => handleEdit(item)} title="Edit" />
+                     <FaTrash className="delete-icon" onClick={() => handleDelete(item.id)} title="Hapus" />
+                   </div>
                 </td>
               </tr>
             ))

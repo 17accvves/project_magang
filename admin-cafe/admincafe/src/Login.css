@@ -3,12 +3,9 @@
   min-height: 100vh;
   background: linear-gradient(145deg, #d8b486, #c79a6a);
   background-image: url("./assets/background.png");
-  
-  /* 🔹 Biar gambar diulang ke samping */
   background-repeat: repeat-x;
-  background-size: auto 100%; /* tinggi menyesuaikan layar, lebar otomatis */
+  background-size: auto 100%;
   background-position: top center;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,8 +13,7 @@
   position: relative;
 }
 
-
-
+/* === Top Bar === */
 .top-bar-login {
   position: fixed;
   top: 0;
@@ -36,7 +32,8 @@
 /* === Judul Brand === */
 .app-title {
   position: absolute;
-  top: px;
+  top: 50%;
+  transform: translateY(-50%);
   left: 40px;
   font-size: 30px;
   font-weight: 800;
@@ -51,7 +48,10 @@
   margin: 0 2px;
 }
 
-
+/* Warna huruf Spot */
+.app-title span {
+  color: #ffce85;
+}
 
 /* === Container login === */
 .login-container {
@@ -65,21 +65,16 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-
-/* Warna huruf Spot */
-.app-title span {
-  color: #ffce85;
-}
-
 /* === Judul LOGIN === */
 .login-title {
   font-size: 30px;
-  font-weight: 900; /* dari 100–900, makin besar makin tebal */
+  font-weight: 900;
   margin-bottom: 20px;
 }
 
 /* === Input Form === */
-.login-form input {
+.login-form input,
+.login-form select {
   width: 70%;
   padding: 12px;
   margin-bottom: 15px;
@@ -99,6 +94,16 @@
   position: absolute;
   right: 12px;
   top: 12px;
+  cursor: pointer;
+}
+
+/* === Dropdown Role === */
+.role-dropdown {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: #e9dada url("data:image/svg+xml;utf8,<svg fill='black' height='12' viewBox='0 0 24 24' width='12' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 12px center;
+  background-size: 12px;
   cursor: pointer;
 }
 
@@ -124,6 +129,7 @@
   font-size: 13px;
   color: #4b1f05;
   margin-top: 10px;
+  cursor: pointer;
 }
 
 /* === Login dengan sosial media === */

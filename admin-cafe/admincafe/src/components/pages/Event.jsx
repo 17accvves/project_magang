@@ -57,7 +57,7 @@ const Event = () => {
             <tr>
               <th>Pengaju</th>
               <th>Judul Event</th>
-              <th>Tanggal Mulai</th>
+              <th>Tanggall Mulai</th>
               <th>Tanggal Selesai</th>
               <th>Daftar Menu</th>
               <th>Persetujuan</th>

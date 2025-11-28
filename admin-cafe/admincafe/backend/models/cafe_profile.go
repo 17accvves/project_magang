@@ -2,7 +2,6 @@ package models
 
 import "time"
 
-
 type CafeProfile struct {
 	ID          int       `json:"id"`
 	Nama        string    `json:"nama"`

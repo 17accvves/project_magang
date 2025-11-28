@@ -29,7 +29,7 @@ func ConnectDB() {
 		log.Fatal("Failed to connect to database:", err)
 	}
 
-	// Set connection pool
+	// Set connection pool settings
 	DB.SetMaxOpenConns(25)
 	DB.SetMaxIdleConns(25)
 	DB.SetConnMaxLifetime(5 * time.Minute)
@@ -41,72 +41,20 @@ func ConnectDB() {
 
 	fmt.Println("Successfully connected to PostgreSQL!")
 
-	// Buat semua tabel
+	// Create tables if they don't exist
 	createTables()
-
-	// Buat tabel users & admin default
-	createUsersTable()
-	createAdminDefault()
 }
 
-// =========================
-// CREATE ALL TABLES
-// =========================
 func createTables() {
 	createCafeTables()
 	createMenuTable()
 	createUlasanTable()
-	createPromoTable()
+	createPromoTable() // Tambahkan tabel promo
 }
 
-// =========================
-// USERS TABLE & ADMIN DEFAULT
-// =========================
-func createUsersTable() {
-	createTable := `
-	CREATE TABLE IF NOT EXISTS users (
-		id SERIAL PRIMARY KEY,
-		username VARCHAR(50) UNIQUE NOT NULL,
-		password TEXT NOT NULL,
-		role VARCHAR(20) NOT NULL,
-		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-	);
-	CREATE INDEX IF NOT EXISTS idx_users_role ON users(role);
-	`
-	_, err := DB.Exec(createTable)
-	if err != nil {
-		log.Fatal("Failed to create users table:", err)
-	}
-}
-
-func createAdminDefault() {
-	var count int
-	err := DB.QueryRow("SELECT COUNT(*) FROM users WHERE username='admin'").Scan(&count)
-	if err != nil {
-		log.Printf("Error checking admin user: %v", err)
-		return
-	}
-
-	if count == 0 {
-		_, err := DB.Exec(
-			"INSERT INTO users (username, password, role) VALUES ($1, $2, $3)",
-			"admin", "1234", "admin",
-		)
-		if err != nil {
-			log.Printf("Failed to insert admin default: %v", err)
-			return
-		}
-		fmt.Println("✅ Admin default dibuat -> username: admin | password: 1234")
-	} else {
-		fmt.Println("Admin default sudah ada, tidak dibuat ulang.")
-	}
-}
-
-// =========================
-// CAFE TABLES
-// =========================
 func createCafeTables() {
 	tables := []string{
+		// Cafe profiles table
 		`CREATE TABLE IF NOT EXISTS cafe_profiles (
 			id SERIAL PRIMARY KEY,
 			nama VARCHAR(255) NOT NULL,
@@ -118,6 +66,8 @@ func createCafeTables() {
 			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 			updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 		)`,
+
+		// Cafe social media table
 		`CREATE TABLE IF NOT EXISTS cafe_social_media (
 			id SERIAL PRIMARY KEY,
 			cafe_profile_id INTEGER REFERENCES cafe_profiles(id) ON DELETE CASCADE,
@@ -125,6 +75,8 @@ func createCafeTables() {
 			url VARCHAR(500) NOT NULL,
 			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 		)`,
+
+		// Cafe operational hours table
 		`CREATE TABLE IF NOT EXISTS cafe_operational_hours (
 			id SERIAL PRIMARY KEY,
 			cafe_profile_id INTEGER REFERENCES cafe_profiles(id) ON DELETE CASCADE,
@@ -133,6 +85,8 @@ func createCafeTables() {
 			tutup TIME NOT NULL,
 			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 		)`,
+
+		// Cafe facilities table
 		`CREATE TABLE IF NOT EXISTS cafe_facilities (
 			id SERIAL PRIMARY KEY,
 			cafe_profile_id INTEGER REFERENCES cafe_profiles(id) ON DELETE CASCADE,
@@ -140,6 +94,8 @@ func createCafeTables() {
 			tersedia BOOLEAN DEFAULT true,
 			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 		)`,
+
+		// Cafe gallery table
 		`CREATE TABLE IF NOT EXISTS cafe_gallery (
 			id SERIAL PRIMARY KEY,
 			cafe_profile_id INTEGER REFERENCES cafe_profiles(id) ON DELETE CASCADE,
@@ -155,73 +111,69 @@ func createCafeTables() {
 			log.Printf("Failed to create table: %v", err)
 		}
 	}
+
 	fmt.Println("Cafe tables created successfully!")
 }
 
-// =========================
-// MENUS TABLE
-// =========================
 func createMenuTable() {
 	createTableQuery := `
-	CREATE TABLE IF NOT EXISTS menus (
-		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-		name VARCHAR(255) NOT NULL,
-		price DECIMAL(10,2) NOT NULL,
-		discount DECIMAL(5,2) DEFAULT 0,
-		discounted_price DECIMAL(10,2) DEFAULT 0,
-		start_date DATE,
-		end_date DATE,
-		category VARCHAR(100) NOT NULL,
-		status VARCHAR(50) DEFAULT 'Aktif',
-		img TEXT,
-		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-		updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-	);
+    CREATE TABLE IF NOT EXISTS menus (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        name VARCHAR(255) NOT NULL,
+        price DECIMAL(10,2) NOT NULL,
+        discount DECIMAL(5,2) DEFAULT 0,
+        discounted_price DECIMAL(10,2) DEFAULT 0,
+        start_date DATE,
+        end_date DATE,
+        category VARCHAR(100) NOT NULL,
+        status VARCHAR(50) DEFAULT 'Aktif',
+        img TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
 
-	CREATE INDEX IF NOT EXISTS idx_menu_name ON menus(name);
-	CREATE INDEX IF NOT EXISTS idx_menu_category ON menus(category);
-	CREATE INDEX IF NOT EXISTS idx_menu_status ON menus(status);
-	`
+    CREATE INDEX IF NOT EXISTS idx_menu_name ON menus(name);
+    CREATE INDEX IF NOT EXISTS idx_menu_category ON menus(category);
+    CREATE INDEX IF NOT EXISTS idx_menu_status ON menus(status);
+    `
+
 	_, err := DB.Exec(createTableQuery)
 	if err != nil {
 		log.Fatal("Failed to create menus table:", err)
 	}
+
 	fmt.Println("Menus table created successfully!")
 }
 
-// =========================
-// ULASAN TABLE
-// =========================
 func createUlasanTable() {
 	createTableQuery := `
-	CREATE TABLE IF NOT EXISTS ulasan (
-		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-		nama VARCHAR(255) NOT NULL,
-		email VARCHAR(255),
-		rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
-		teks TEXT NOT NULL,
-		gambar TEXT,
-		avatar TEXT,
-		balasan TEXT,
-		status VARCHAR(50) DEFAULT 'pending',
-		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-		updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-	);
+    CREATE TABLE IF NOT EXISTS ulasan (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        nama VARCHAR(255) NOT NULL,
+        email VARCHAR(255),
+        rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
+        teks TEXT NOT NULL,
+        gambar TEXT,
+        avatar TEXT,
+        balasan TEXT,
+        status VARCHAR(50) DEFAULT 'pending',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
 
-	CREATE INDEX IF NOT EXISTS idx_ulasan_status ON ulasan(status);
-	CREATE INDEX IF NOT EXISTS idx_ulasan_rating ON ulasan(rating);
-	CREATE INDEX IF NOT EXISTS idx_ulasan_created_at ON ulasan(created_at);
-	`
+    CREATE INDEX IF NOT EXISTS idx_ulasan_status ON ulasan(status);
+    CREATE INDEX IF NOT EXISTS idx_ulasan_rating ON ulasan(rating);
+    CREATE INDEX IF NOT EXISTS idx_ulasan_created_at ON ulasan(created_at);
+    `
+
 	_, err := DB.Exec(createTableQuery)
 	if err != nil {
 		log.Fatal("Failed to create ulasan table:", err)
 	}
+
 	fmt.Println("Ulasan table created successfully!")
 }
 
-// =========================
-// PROMOS TABLE
-// =========================
 func createPromoTable() {
 	createTableQuery := `
 	CREATE TABLE IF NOT EXISTS promos (
@@ -238,18 +190,20 @@ func createPromoTable() {
 	CREATE INDEX IF NOT EXISTS idx_promo_status ON promos(status);
 	CREATE INDEX IF NOT EXISTS idx_promo_dates ON promos(start_date, end_date);
 	`
+
 	_, err := DB.Exec(createTableQuery)
 	if err != nil {
 		log.Fatal("Failed to create promos table:", err)
 	}
+
 	fmt.Println("Promos table created successfully!")
+
+	// Insert sample data
 	insertSamplePromos()
 }
 
-// =========================
-// SAMPLE PROMOS
-// =========================
 func insertSamplePromos() {
+	// Check if sample data already exists
 	var count int
 	err := DB.QueryRow("SELECT COUNT(*) FROM promos").Scan(&count)
 	if err != nil {

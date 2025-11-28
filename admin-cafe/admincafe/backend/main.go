@@ -1,3 +1,4 @@
+// main.go - PERBAIKI ROUTING
 package main
 
 import (
@@ -13,46 +14,34 @@ import (
 )
 
 func main() {
-	// =========================
-	// 1️⃣ Connect PostgreSQL
-	// =========================
-	config.ConnectDB() // di sini juga sudah bikin tabel users & admin default
+	// Connect to PostgreSQL
+	config.ConnectDB()
 
-	// =========================
-	// 2️⃣ Initialize Repositories
-	// =========================
-	userRepo := repository.NewUserRepository()
-	cafeRepo := repository.NewCafeProfileRepository(config.DB)
+	// Initialize repositories
+	cafeProfileRepo := repository.NewCafeProfileRepository(config.DB)
 	menuRepo := repository.NewMenuRepository(config.DB)
 	ulasanRepo := repository.NewUlasanRepository(config.DB)
 
-	// =========================
-	// 3️⃣ Initialize Handlers
-	// =========================
-	authHandler := handlers.NewAuthHandler(userRepo) // pakai userRepo
-	cafeHandler := handlers.NewCafeProfileHandler(cafeRepo)
+	// Initialize handlers
+	cafeProfileHandler := handlers.NewCafeProfileHandler(cafeProfileRepo)
 	menuHandler := handlers.NewMenuHandler(menuRepo)
 	ulasanHandler := handlers.NewUlasanHandler(ulasanRepo)
-	promoHandler := handlers.NewPromoHandler(menuRepo)
+	promoHandler := handlers.NewPromoHandler(menuRepo) // ✅ PERBAIKI: Pass menuRepo
 
-	// =========================
-	// 4️⃣ Start discount checker (background)
-	// =========================
+	// Start discount checker
 	go menuRepo.StartDiscountChecker()
 
-	// =========================
-	// 5️⃣ Setup router
-	// =========================
+	// Setup router
 	router := gin.Default()
 
-	// CORS
+	// CORS configuration
 	corsConfig := cors.DefaultConfig()
 	corsConfig.AllowAllOrigins = true
 	corsConfig.AllowMethods = []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}
 	corsConfig.AllowHeaders = []string{"*"}
 	router.Use(cors.New(corsConfig))
 
-	// Logging middleware
+	// Middleware logging
 	router.Use(func(c *gin.Context) {
 		start := time.Now()
 		c.Next()
@@ -63,46 +52,37 @@ func main() {
 	// Serve static files
 	router.Static("/uploads", "./uploads")
 
-	// =========================
-	// 6️⃣ Auth Routes
-	// =========================
-	router.POST("/login", authHandler.Login)
-
-	// =========================
-	// 7️⃣ Cafe Profile Routes
-	// =========================
+	// === CAFE PROFILE ROUTES ===
 	cafeRoutes := router.Group("/cafe")
 	{
-		cafeRoutes.GET("/profile", cafeHandler.GetCafeProfile)
-		cafeRoutes.PUT("/profile", cafeHandler.UpdateCafeProfile)
-		cafeRoutes.POST("/profile/image", cafeHandler.UploadProfileImage)
-
-		cafeRoutes.GET("/social-media", cafeHandler.GetSocialMedia)
-		cafeRoutes.POST("/social-media", cafeHandler.AddSocialMedia)
-		cafeRoutes.DELETE("/social-media/all", cafeHandler.DeleteAllSocialMedia)
-
-		cafeRoutes.GET("/operational-hours", cafeHandler.GetOperationalHours)
-		cafeRoutes.PUT("/operational-hours", cafeHandler.UpdateOperationalHours)
-
-		cafeRoutes.GET("/facilities", cafeHandler.GetFacilities)
-		cafeRoutes.PUT("/facilities", cafeHandler.UpdateFacilities)
-
-		cafeRoutes.GET("/gallery", cafeHandler.GetGallery)
-		cafeRoutes.POST("/gallery", cafeHandler.AddGalleryImage)
-		cafeRoutes.DELETE("/gallery/:id", cafeHandler.DeleteGalleryImage)
+		cafeRoutes.GET("/profile", cafeProfileHandler.GetCafeProfile)
+		cafeRoutes.PUT("/profile", cafeProfileHandler.UpdateCafeProfile)
+		cafeRoutes.POST("/profile/image", cafeProfileHandler.UploadProfileImage)
+		
+		cafeRoutes.GET("/social-media", cafeProfileHandler.GetSocialMedia)
+		cafeRoutes.POST("/social-media", cafeProfileHandler.AddSocialMedia)
+		cafeRoutes.DELETE("/social-media/all", cafeProfileHandler.DeleteAllSocialMedia)
+		
+		cafeRoutes.GET("/operational-hours", cafeProfileHandler.GetOperationalHours)
+		cafeRoutes.PUT("/operational-hours", cafeProfileHandler.UpdateOperationalHours)
+		
+		cafeRoutes.GET("/facilities", cafeProfileHandler.GetFacilities)
+		cafeRoutes.PUT("/facilities", cafeProfileHandler.UpdateFacilities)
+		
+		cafeRoutes.GET("/gallery", cafeProfileHandler.GetGallery)
+		cafeRoutes.POST("/gallery", cafeProfileHandler.AddGalleryImage)
+		cafeRoutes.DELETE("/gallery/:id", cafeProfileHandler.DeleteGalleryImage)
 	}
 
-	// Operational Hours public API
-	operational := router.Group("/api/operational-hours")
+	// ✅ ROUTES BARU: Operational Hours dengan format 24 jam - PERBAIKI PATH
+	operationalRoutes := router.Group("/api")
 	{
-		operational.GET("/today", cafeHandler.GetTodayOperationalHours)
-		operational.PUT("/single", cafeHandler.UpdateSingleOperationalHours)
-		operational.GET("/status", cafeHandler.GetCurrentStatus)
+		operationalRoutes.GET("/operational-hours/today", cafeProfileHandler.GetTodayOperationalHours)
+		operationalRoutes.PUT("/operational-hours/single", cafeProfileHandler.UpdateSingleOperationalHours)
+		operationalRoutes.GET("/operational-hours/status", cafeProfileHandler.GetCurrentStatus)
 	}
 
-	// =========================
-	// 8️⃣ Menu Routes
-	// =========================
+	// Menu Routes (existing)
 	menuApi := router.Group("/menus")
 	{
 		menuApi.GET("", menuHandler.GetMenus)
@@ -111,11 +91,8 @@ func main() {
 		menuApi.PUT("/:id", menuHandler.UpdateMenu)
 		menuApi.DELETE("/:id", menuHandler.DeleteMenu)
 	}
-	router.POST("/upload", menuHandler.UploadImage)
 
-	// =========================
-	// 9️⃣ Ulasan Routes
-	// =========================
+	// Ulasan Routes (existing)
 	ulasanApi := router.Group("/ulasan")
 	{
 		ulasanApi.GET("", ulasanHandler.GetUlasan)
@@ -124,6 +101,10 @@ func main() {
 		ulasanApi.POST("/upload-avatar", ulasanHandler.UploadAvatarUlasan)
 	}
 
+	// Menu Upload route
+	router.POST("/upload", menuHandler.UploadImage)
+
+	// Admin Ulasan Routes (existing)
 	adminUlasan := router.Group("/admin/ulasan")
 	{
 		adminUlasan.GET("", ulasanHandler.GetUlasanAdmin)
@@ -134,22 +115,19 @@ func main() {
 		adminUlasan.DELETE("/:id", ulasanHandler.DeleteUlasan)
 	}
 
-	// =========================
-	// 10️⃣ Promo Routes
-	// =========================
+	// ✅ PROMO ROUTES - SEKARANG AMBIL DATA DARI MENU YANG ADA DISKON
 	promoApi := router.Group("/api/v1/promos")
 	{
-		promoApi.GET("", promoHandler.GetAllPromos)
-		promoApi.GET("/stats", promoHandler.GetPromoStats)
+		promoApi.GET("", promoHandler.GetAllPromos)           // Get semua promo dari menu
+		promoApi.GET("/stats", promoHandler.GetPromoStats)    // Get statistik promo
+		// Routes legacy bisa dihapus atau dipertahankan untuk compatibility
 		promoApi.GET("/:id", promoHandler.GetPromoByID)
 		promoApi.POST("", promoHandler.CreatePromo)
 		promoApi.PUT("/:id", promoHandler.UpdatePromo)
 		promoApi.DELETE("/:id", promoHandler.DeletePromo)
 	}
 
-	// =========================
-	// 11️⃣ Health Check
-	// =========================
+	// Health check
 	router.GET("/health", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"status":  "OK",
@@ -158,24 +136,25 @@ func main() {
 		})
 	})
 
-	// =========================
-	// 12️⃣ Debug Routes
-	// =========================
+	// ✅ DEBUG: Print semua routes yang terdaftar
 	logRegisteredRoutes(router)
 
 	log.Println("✅ Server started successfully on :8080")
+	log.Println("🏪 Cafe Profile API ready")
+	log.Println("⏰ Operational Hours API ready (24-hour format)")
+	log.Println("🎯 Promo API ready (Now using menu data with discounts)")
+
 	if err := router.Run(":8080"); err != nil {
 		log.Fatal("❌ Failed to start server:", err)
 	}
 }
 
-// =========================
-// Helper: Print semua routes
-// =========================
+// ✅ FUNCTION BARU: Debug untuk melihat semua routes yang terdaftar
 func logRegisteredRoutes(router *gin.Engine) {
 	log.Println("📋 REGISTERED ROUTES:")
-	for _, r := range router.Routes() {
-		log.Printf("%s %s", r.Method, r.Path)
+	routes := router.Routes()
+	for _, route := range routes {
+		log.Printf("  %s %s", route.Method, route.Path)
 	}
 	log.Println("📋 END OF REGISTERED ROUTES")
 }

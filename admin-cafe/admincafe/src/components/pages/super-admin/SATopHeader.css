@@ -1,0 +1,21 @@
+.sa-top-header {
+    height: 70px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    border-bottom: 1px solid #e0e0e0;
+    flex-shrink: 0;
+}
+.sa-search-box input {
+    background: #f8f9fa; border: 1px solid #ddd;
+    padding: 10px 20px; border-radius: 20px; width: 250px; outline: none;
+}
+.sa-header-right { display: flex; align-items: center; gap: 20px; }
+.sa-maintenance-badge { font-weight: 600; color: #555; font-size: 14px; }
+.sa-user-profile { display: flex; align-items: center; gap: 10px; cursor: pointer;}
+.sa-avatar-circle { width: 35px; height: 35px; background: #333; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;}
+.sa-user-text { display: flex; flex-direction: column; }
+.sa-user-text .name { font-weight: bold; font-size: 14px; }
+.sa-user-text .role { font-size: 11px; color: #888; }

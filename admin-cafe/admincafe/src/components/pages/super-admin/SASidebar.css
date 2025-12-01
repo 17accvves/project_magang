@@ -1,0 +1,26 @@
+.sa-sidebar-container {
+    width: 260px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    border-right: 1px solid #e0e0e0;
+    flex-shrink: 0;
+    height: 100vh;
+}
+
+.sa-logo { font-size: 24px; margin-bottom: 40px; }
+.brand-bold { color: #8B4513; font-weight: 800; }
+.brand-light { color: #A0522D; font-weight: 500; }
+
+.sa-nav-list { display: flex; flex-direction: column; gap: 10px; }
+.sa-nav-bottom { margin-top: auto; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid #eee; padding-top: 20px;}
+
+.sa-nav-item {
+    display: flex; align-items: center; gap: 15px;
+    color: #666; padding: 12px; cursor: pointer;
+    border-radius: 8px; transition: 0.3s; font-weight: 500;
+}
+.sa-nav-item:hover { background: #f5f7fa; color: #3498db; }
+.sa-nav-item.active { background: #4e73df; color: white; box-shadow: 0 4px 10px rgba(78,115,223,0.3); }
+.sa-nav-item .icon { width: 20px; text-align: center; }

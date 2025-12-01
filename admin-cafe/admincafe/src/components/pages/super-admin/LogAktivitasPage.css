@@ -1,0 +1,24 @@
+.log-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; }
+.log-header-actions { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+.btn-header-green { background-color: #1abc9c; color: white; border: none; padding: 8px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+.btn-header-green:hover { background-color: #16a085; }
+
+.log-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+.activity-card { border-radius: 20px; padding: 25px; display: flex; flex-direction: column; justify-content: space-between; min-height: 180px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; overflow: hidden; }
+
+.activity-card.dark { background-color: #8d6e63; color: white; }
+.activity-card.light { background-color: #fdf3e8; color: #5d4037; border: 1px solid #e0d4c5; }
+.activity-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.05) 0%, transparent 20%), radial-gradient(circle at 90% 80%, rgba(255,255,255,0.05) 0%, transparent 20%); pointer-events: none; }
+
+.act-title { font-size: 16px; margin: 0 0 20px 0; font-weight: 700; }
+.act-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 13px; opacity: 0.9; }
+.status-pill { background-color: #1abc9c; color: white; padding: 2px 10px; border-radius: 10px; font-size: 11px; margin-left: 5px; }
+.act-details { display: flex; justify-content: space-between; margin-bottom: 25px; font-size: 13px; }
+.act-details p { margin: 0; }
+
+.act-actions { display: flex; gap: 10px; }
+.btn-act { flex: 1; background-color: #e67e22; color: white; border: none; padding: 8px 5px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: 0.2s; }
+.btn-act:hover { background-color: #d35400; }
+.icon-check, .icon-dots, .icon-chat { background: rgba(0,0,0,0.2); width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+
+@media (max-width: 900px) { .log-grid { grid-template-columns: 1fr; } }

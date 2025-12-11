@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Home,
   User,
@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./Admincafe.css";
-//import coffeeLogo from "../assets/gambarbiji.png";
 import profilePic from "../assets/profile.jpg";
 import coffeeLogo from "../assets/gambarbiji.png";
 
@@ -33,7 +32,15 @@ import ErrorBoundary from "./ErrorBoundary";
 function Admincafe() {
   const [activeMenu, setActiveMenu] = useState("Dashboard");
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    const user = localStorage.getItem("username");
+    if (!isLoggedIn) navigate("/login");
+    setUsername(user || "Admin Café");
+  }, []);
 
   const menuItems = [
     { name: "Dashboard", icon: <Home size={20} /> },
@@ -49,11 +56,12 @@ function Admincafe() {
     const confirmLogout = window.confirm("Yakin ingin keluar dari Admin Café?");
     if (confirmLogout) {
       localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("username");
+      localStorage.removeItem("role");
       navigate("/login");
     }
   };
 
-  // === FUNGSI RENDER HALAMAN ===
   const renderPage = () => {
     switch (activeMenu) {
       case "Dashboard":
@@ -84,12 +92,10 @@ function Admincafe() {
       {/* === SIDEBAR === */}
       <aside className="sidebar">
         <div className="logo-text">
-
-        <span className="logo-main">CARI</span>
-        <span className="logo-spot">Sp</span>
-        <img src={coffeeLogo} alt="coffee bean" className="logo-coffee" />
-        <span className="logo-spot">t</span>
-
+          <span className="logo-main">CARI</span>
+          <span className="logo-spot">Sp</span>
+          <img src={coffeeLogo} alt="coffee bean" className="logo-coffee" />
+          <span className="logo-spot">t</span>
         </div>
 
         <button
@@ -103,9 +109,7 @@ function Admincafe() {
           {menuItems.map((item) => (
             <div
               key={item.name}
-              className={`menu-item ${
-                activeMenu === item.name ? "active" : ""
-              }`}
+              className={`menu-item ${activeMenu === item.name ? "active" : ""}`}
               onClick={() => setActiveMenu(item.name)}
             >
               {item.icon}
@@ -128,14 +132,12 @@ function Admincafe() {
             <Bell className="notif-icon" size={22} />
             <div className="profile-info">
               <img src={profilePic} alt="Profile" className="profile-pic" />
-              <span className="profile-name">Admin Café</span>
+              <span className="profile-name">{username}</span>
             </div>
           </div>
         </header>
 
-        <div className="content-body">
-          {renderPage()}
-        </div>
+        <div className="content-body">{renderPage()}</div>
       </main>
     </div>
   );

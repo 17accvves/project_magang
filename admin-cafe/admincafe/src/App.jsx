@@ -3,6 +3,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Admincafe from "./components/Admincafe";
 import Superadmin from "./components/pages/super-admin/Superadmin";
+import AdminCafeApproval from "./components/AdminCafeApproval";
 import React from "react";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<Admincafe />} />
         <Route path="/superadmin" element={<Superadmin />} />
+        <Route path="/adminapprove" element={<AdminCafeApproval />} />
       </Routes>
     </Router>
   );

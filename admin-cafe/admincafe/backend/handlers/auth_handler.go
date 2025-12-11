@@ -1,125 +1,56 @@
 package handlers
 
 import (
-	"backend/models"
 	"backend/repository"
-	"encoding/json"
-	"fmt"
-	"io"
 	"net/http"
-	"os"
+
+	"github.com/gin-gonic/gin"
 )
 
 type AuthHandler struct {
-	repo *repository.UserRepository
+	userRepo *repository.UserRepository
 }
 
-func NewAuthHandler(repo *repository.UserRepository) *AuthHandler {
-	return &AuthHandler{repo: repo}
+// Constructor
+func NewAuthHandler(userRepo *repository.UserRepository) *AuthHandler {
+	return &AuthHandler{
+		userRepo: userRepo,
+	}
 }
 
-// ==============================
-// LOGIN (Plain Text Password)
-// ==============================
-func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
-    var body struct {
-        Username string `json:"username"`
-        Password string `json:"password"`
-        Role     string `json:"role"`
-    }
+// =========================
+// Login handler dengan role check
+// =========================
+func (h *AuthHandler) Login(c *gin.Context) {
+	var body struct {
+		Username string `json:"username" binding:"required"`
+		Password string `json:"password" binding:"required"`
+		Role     string `json:"role" binding:"required"` // tangkap role dari frontend
+	}
 
-    // <- letakkan di sini
-    err := json.NewDecoder(r.Body).Decode(&body)
-    if err != nil {
-        fmt.Println("JSON decode error:", err)
-        http.Error(w, "Invalid request body", http.StatusBadRequest)
-        return
-    }
-    fmt.Println("Login attempt:", body.Username, "Role:", body.Role)
-
-    // query DB setelah ini
-    var dbPassword, role, username string
-    err = h.repo.DB.QueryRow(
-        "SELECT username, password, role FROM users WHERE username=$1 AND role=$2",
-        body.Username, body.Role,
-    ).Scan(&username, &dbPassword, &role)
-
-    if err != nil {
-        fmt.Println("DB query error:", err)
-        http.Error(w, "User not found", http.StatusUnauthorized)
-        return
-    }
-
-    if body.Password != dbPassword {
-        fmt.Println("Password mismatch")
-        http.Error(w, "Invalid password", http.StatusUnauthorized)
-        return
-    }
-
-    fmt.Println("Login success:", username, role)
-    json.NewEncoder(w).Encode(map[string]string{
-        "username": username,
-        "role":     role,
-    })
-}
-
-
-// ==============================
-// REGISTER CAFE (Plain Password)
-// ==============================
-func (h *AuthHandler) RegisterCafe(w http.ResponseWriter, r *http.Request) {
-	// Parse multipart form
-	err := r.ParseMultipartForm(10 << 20) // 10 MB
-	if err != nil {
-		fmt.Println("Parse form error:", err)
-		http.Error(w, "Invalid form data", http.StatusBadRequest)
+	if err := c.ShouldBindJSON(&body); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Username, password, dan role wajib diisi"})
 		return
 	}
 
-	username := r.FormValue("username")
-	password := r.FormValue("password")
-	email := r.FormValue("email")
-
-	// ===== Simpan file izin usaha =====
-	file, header, err := r.FormFile("izin_usaha")
+	user, err := h.userRepo.Login(body.Username, body.Password)
 	if err != nil {
-		http.Error(w, "File error", http.StatusBadRequest)
-		return
-	}
-	defer file.Close()
-
-	filePath := "./uploads/" + header.Filename
-	out, err := os.Create(filePath)
-	if err != nil {
-		http.Error(w, "Gagal menyimpan file", http.StatusInternalServerError)
-		return
-	}
-	defer out.Close()
-
-	_, err = io.Copy(out, file)
-	if err != nil {
-		http.Error(w, "Gagal menyimpan file", http.StatusInternalServerError)
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Username atau password salah!"})
 		return
 	}
 
-	// PASSWORD DISIMPAN TANPA HASH
-	user := &models.User{
-		Username:  username,
-		Password:  password, // 🔥 plain text
-		Email:     email,
-		Role:      "cafe",
-		IzinUsaha: filePath,
-		Verified:  false,
-	}
-
-	err = h.repo.CreateCafe(user)
-	if err != nil {
-		fmt.Println("CreateCafe error:", err)
-		http.Error(w, "Gagal registrasi", http.StatusInternalServerError)
+	// ✅ Validasi role
+	if user.Role != body.Role {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Role tidak sesuai dengan akun"})
 		return
 	}
 
-	json.NewEncoder(w).Encode(map[string]string{
-		"message": "Registrasi sukses! Tunggu approval admin.",
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Login berhasil",
+		"user": gin.H{
+			"id":       user.ID,
+			"username": user.Username,
+			"role":     user.Role,
+		},
 	})
 }

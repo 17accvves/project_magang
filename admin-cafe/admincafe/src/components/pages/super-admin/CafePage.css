@@ -1,0 +1,34 @@
+.cafe-content-padding { padding: 30px; min-height: 100%; }
+.cafe-content-padding.cafe-theme { background-color: #dfc8a8; }
+.cafe-theme .page-title { color: #4a3b2a; margin: 0 0 25px 0; font-size: 28px; font-weight: 700; }
+
+.page-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.btn-add-cafe { background: transparent; color: #555; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 5px; font-size: 14px; border: none; }
+.btn-add-cafe .plus { border: 1px solid #555; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; }
+
+.promo-banner { background: linear-gradient(135deg, #4e73df 0%, #3b5bce 100%); border-radius: 20px; padding: 30px; color: white; position: relative; display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; }
+.banner-content { z-index: 2; text-align: left; flex: 1; padding: 0 20px;}
+.banner-date { font-size: 12px; opacity: 0.9; display: block; margin-bottom: 5px; }
+.banner-title { font-size: 22px; margin: 0 0 10px 0; line-height: 1.3; font-weight: 700;}
+.banner-subtitle { font-size: 11px; opacity: 0.8; margin-bottom: 15px; }
+.btn-promo-action { background-color: #ff7f50; color: white; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+.banner-nav { width: 35px; height: 35px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+
+.cafe-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.cafe-card { background: white; border-radius: 15px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); display: flex; flex-direction: column; }
+.cafe-logo-area { background-color: #f8f9fa; height: 150px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; position: relative; }
+.cafe-logo-img { max-width: 70%; max-height: 70%; object-fit: contain; }
+.img-nav { position: absolute; top: 50%; transform: translateY(-50%); background: transparent; border: none; color: #ccc; font-size: 20px; cursor: pointer; }
+.img-nav.left { left: 5px; } .img-nav.right { right: 5px; }
+
+.cafe-header-row { display: flex; justify-content: space-between; align-items: flex-start; }
+.cafe-header-row h3 { margin: 0; font-size: 16px; color: #333; }
+.btn-icon-edit { background: none; border: none; cursor: pointer; }
+.cafe-rank { color: #4e73df; font-weight: 600; font-size: 12px; margin: 5px 0 10px 0; }
+.cafe-rating { margin-bottom: 15px; font-size: 13px; }
+.stars { color: #f39c12; margin-right: 5px; }
+.review-count { color: #888; }
+.btn-see-cafe { width: 100%; background-color: #e6eaf5; color: #333; border: none; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+
+@media (max-width: 1024px) { .cafe-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .cafe-grid { grid-template-columns: 1fr; } }

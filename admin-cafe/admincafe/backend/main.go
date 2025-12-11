@@ -1,15 +1,16 @@
 package main
 
 import (
-	"log"
-	"time"
+    "backend/config"
+    "backend/handlers"
+    "backend/repository"
+    "backend/routes"
+    "fmt"
+    "log"
+    "net/http"
+    "os"
 
-	"backend/config"
-	"backend/handlers"
-	"backend/repository"
-
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
+    "github.com/rs/cors"
 )
 
 func main() {

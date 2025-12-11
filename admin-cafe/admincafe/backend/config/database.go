@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"time"
+	"os"
 
 	_ "github.com/lib/pq"
 )
@@ -20,13 +20,12 @@ const (
 )
 
 func ConnectDB() {
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
-
+	// DSN menggunakan database carispot_db
+	dsn := "host=localhost port=5432 user=postgres password=111122 dbname=carispot_db sslmode=disable"
 	var err error
-	DB, err = sql.Open("postgres", psqlInfo)
+	DB, err = sql.Open("postgres", dsn)
 	if err != nil {
-		log.Fatal("Failed to connect to database:", err)
+		log.Fatal("DB connection error:", err)
 	}
 
 	// Set connection pool
@@ -226,21 +225,19 @@ func createPromoTable() {
 	createTableQuery := `
 	CREATE TABLE IF NOT EXISTS promos (
 		id SERIAL PRIMARY KEY,
-		title VARCHAR(255) NOT NULL,
-		start_date DATE NOT NULL,
-		end_date DATE NOT NULL,
-		revenue VARCHAR(50) NOT NULL,
-		status VARCHAR(20) DEFAULT 'active',
-		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-		updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+		username VARCHAR(50) UNIQUE NOT NULL,
+		password VARCHAR(255) NOT NULL,
+		email VARCHAR(100),
+		role VARCHAR(20) NOT NULL,
+		izin_usaha TEXT,
+		verified BOOLEAN DEFAULT false,
+		rejected BOOLEAN DEFAULT false,
+		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 	);
-
-	CREATE INDEX IF NOT EXISTS idx_promo_status ON promos(status);
-	CREATE INDEX IF NOT EXISTS idx_promo_dates ON promos(start_date, end_date);
 	`
 	_, err := DB.Exec(createTableQuery)
 	if err != nil {
-		log.Fatal("Failed to create promos table:", err)
+		log.Fatal("Failed to create table:", err)
 	}
 	fmt.Println("Promos table created successfully!")
 	insertSamplePromos()
@@ -253,33 +250,27 @@ func insertSamplePromos() {
 	var count int
 	err := DB.QueryRow("SELECT COUNT(*) FROM promos").Scan(&count)
 	if err != nil {
-		log.Printf("Error checking existing promos: %v", err)
-		return
+		log.Fatal("Check admin error:", err)
 	}
 
-	if count == 0 {
-		samplePromos := []struct {
-			title     string
-			startDate string
-			endDate   string
-			revenue   string
-		}{
-			{"Diskon Promo 25% Matcha", "2025-09-18", "2025-09-25", "17JT"},
-			{"Diskon Promo 15% Kopi Latte", "2025-09-10", "2025-09-20", "12JT"},
-			{"Diskon Promo 10% Snack Pukis", "2025-09-05", "2025-09-12", "9JT"},
-			{"Diskon Promo 20% Extra Jose", "2025-09-01", "2025-09-10", "14JT"},
-			{"Diskon Promo 30% Pentolaan James", "2025-08-22", "2025-08-28", "20JT"},
+	if !exists {
+		_, err := DB.Exec(
+			"INSERT INTO users (username, password, role, verified) VALUES ($1,$2,$3,true)",
+			"admin", "admin123", "admin",
+		)
+		if err != nil {
+			log.Fatal("Failed to create default admin:", err)
 		}
+		fmt.Println("Default admin created (username: admin, password: admin123)")
+	} else {
+		fmt.Println("Default admin already exists")
+	}
+}
 
-		for _, promo := range samplePromos {
-			_, err := DB.Exec(
-				"INSERT INTO promos (title, start_date, end_date, revenue) VALUES ($1, $2, $3, $4)",
-				promo.title, promo.startDate, promo.endDate, promo.revenue,
-			)
-			if err != nil {
-				log.Printf("Failed to insert sample promo: %v", err)
-			}
-		}
-		fmt.Println("Sample promos inserted successfully!")
+// Pastikan folder uploads ada
+func ensureUploadsFolder() {
+	if _, err := os.Stat("./uploads"); os.IsNotExist(err) {
+		os.Mkdir("./uploads", os.ModePerm)
+		fmt.Println("Folder uploads dibuat")
 	}
 }

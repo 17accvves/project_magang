@@ -1,14 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import "./Login.css";
 import coffeeImg from "./assets/gambarbiji.png";
 
-function Login() {
+export default function Login() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState("admin");
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,26 +20,32 @@ function Login() {
     try {
       const res = await fetch("http://localhost:8080/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password, role }),
       });
 
+      // Cek status dulu
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        console.error("Login failed:", errData);
+        alert(errData.error || "Login gagal!");
+        setLoading(false);
+        return;
+      }
+
+      // Response valid JSON
       const data = await res.json();
 
-      if (!res.ok) {
-        alert(data.error || "Login gagal!");
-      } else {
-        alert(`Login berhasil sebagai ${role.toUpperCase()}!`);
-        // Redirect sesuai role
-        if (role === "admin") navigate("/superadmin");
-        else if (role === "cafe") navigate("/admin");
-        else if (role === "eo") navigate("/eo");
-      }
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("role", data.role);
+      localStorage.setItem("username", data.username);
+
+      // Navigate sesuai role
+      if (data.role === "superadmin" || data.role === "admin") navigate("/adminapprove");
+      if (data.role === "cafe") navigate("/admin");
     } catch (err) {
-      console.error(err);
-      alert("Terjadi kesalahan server!");
+      console.error("Fetch error:", err);
+      alert("Server error");
     } finally {
       setLoading(false);
     }
@@ -57,14 +63,8 @@ function Login() {
 
       <div className="login-container">
         <h2 className="login-title">LOGIN</h2>
-
         <form className="login-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            required
-          />
+          <input type="text" name="username" placeholder="Username" required />
 
           <div className="password-container">
             <input
@@ -93,7 +93,6 @@ function Login() {
           >
             <option value="admin">Admin</option>
             <option value="cafe">Cafe</option>
-            <option value="eo">EO</option>
           </select>
 
           <button type="submit" disabled={loading}>
@@ -114,5 +113,3 @@ function Login() {
     </div>
   );
 }
-
-export default Login;
